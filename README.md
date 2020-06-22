@@ -12,6 +12,7 @@ Marble Maze is a JavaScript-based marble maze simulator game.  The player tilts 
 * The game display rotates on the x and y-axes to reflect the tilt of the board.
 
 ## Wireframe
+![wireframe](./wireframe.png)
 
 ## Architecture & Technologies
 * JavaScript for game logic
