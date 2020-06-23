@@ -1,0 +1,10 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+#gameScreen {
+  border: 1px solid black; }
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzL2luZGV4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0Esc0JBQXNCOztBQUV0QjtBQUNBLDBCQUEwQiIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xuICBhbGlnbi1pdGVtczogY2VudGVyOyB9XG5cbiNnYW1lU2NyZWVuIHtcbiAgYm9yZGVyOiAxcHggc29saWQgYmxhY2s7IH1cbiJdLCJzb3VyY2VSb290IjoiIn0=*/
