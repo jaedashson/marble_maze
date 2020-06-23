@@ -11,7 +11,7 @@ let ctx = canvas.getContext("2d");
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 
-let board = new Board();
+let board = new Board(GAME_WIDTH, GAME_HEIGHT);
 let marble = new Marble();
 new InputHandler(board);
 let game = new Game(board, marble);

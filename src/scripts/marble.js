@@ -13,7 +13,7 @@ export default class Marble {
       x: 0,
       y: 0
     };
-    this.gravity = 5; // Adjust
+    this.gravity = 0.001; // Adjust
     this.friction = 0.25; // Adjust
   }
 
@@ -40,7 +40,7 @@ export default class Marble {
     this.speed.x = this.acceleration.x * deltaTime;
     this.speed.y = this.acceleration.y * deltaTime;
 
-    this.position.x += this.speed.x;
-    this.position.y += this.speed.y;
+    this.position.x += this.speed.x * deltaTime;
+    this.position.y += this.speed.y * deltaTime;
   }
 }

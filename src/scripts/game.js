@@ -10,6 +10,7 @@ export default class Game {
   }
 
   draw(ctx) {
+    this.board.draw(ctx)
     this.marble.draw(ctx);
   }
 
