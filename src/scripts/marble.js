@@ -13,7 +13,7 @@ export default class Marble {
       x: 0,
       y: 0
     };
-    this.gravity = 0.001; // Adjust
+    this.gravity = 0.01; // Adjust
     this.friction = 0.25; // Adjust
   }
 
