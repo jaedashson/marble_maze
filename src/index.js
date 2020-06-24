@@ -14,7 +14,7 @@ const MARBLE_RADIUS = 10;
 
 let board = new Board(GAME_WIDTH, GAME_HEIGHT);
 let marble = new Marble(MARBLE_RADIUS, GAME_WIDTH, GAME_HEIGHT);
-new InputHandler(board);
+let inputHandler = new InputHandler(board);
 let game = new Game(board, marble);
 
 let lastTime = 0;
@@ -23,6 +23,7 @@ function gameLoop(timestamp) {
   let deltaTime = timestamp - lastTime;
   lastTime = timestamp;
 
+  inputHandler.handleInput(deltaTime);
   ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
   game.update(deltaTime);
   game.draw(ctx);
