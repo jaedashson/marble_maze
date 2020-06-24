@@ -8,7 +8,8 @@ export default class Board {
     this.maxTiltY = 30;
     this.accX = 0;
     this.accY = 0;
-    this.gravity = 0.0025; // Adjust
+    this.grav = 0.0025; // Adjust
+    this.fricCoeff = 0.02;
   }
 
   draw(ctx) {
@@ -27,7 +28,13 @@ export default class Board {
     let sign = Math.sign(deg);
     let degAbs = Math.abs(deg);
     let rad = this.degToRad(degAbs);
-    return sign * this.gravity * Math.sin(rad);
+    let acc = sign * this.grav * Math.sin(rad);
+
+    let fric = this.calculateFric(rad);
+  }
+
+  calculateFric(rad) {
+    return this.fricCoeff * this.grav * Math.cos(rad);
   }
 
   degToRad(deg) {
