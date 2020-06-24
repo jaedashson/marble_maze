@@ -8,7 +8,7 @@ export default class Board {
     this.maxTiltY = 30;
     this.accX = 0;
     this.accY = 0;
-    this.gravity = 0.1; // Adjust
+    this.gravity = 0.0025; // Adjust
   }
 
   draw(ctx) {

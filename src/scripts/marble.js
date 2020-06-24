@@ -34,15 +34,19 @@ export default class Marble {
     this.posX += this.velX * deltaTime;
     if (this.posX < 0) {
       this.posX = 0;
+      this.velX = 0;
     } else if (this.posX + this.size > this.width) {
       this.posX = this.width - this.size;
+      this.velX = 0;
     }
 
     this.posY += this.velY * deltaTime;
     if (this.posY < 0) {
       this.posY = 0;
+      this.velY = 0;
     } else if (this.posY + this.size > this.height) {
       this.posY = this.height - this.size;
+      this.velY = 0;
     }
   }
 }
