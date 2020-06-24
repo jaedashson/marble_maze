@@ -7,12 +7,12 @@ import Marble from "./scripts/marble";
 let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");
 
-// Can I make these variables?
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
+const MARBLE_SIZE = 20;
 
 let board = new Board(GAME_WIDTH, GAME_HEIGHT);
-let marble = new Marble();
+let marble = new Marble(MARBLE_SIZE, GAME_WIDTH, GAME_HEIGHT);
 new InputHandler(board);
 let game = new Game(board, marble);
 
