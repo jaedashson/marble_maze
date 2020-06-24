@@ -1,7 +1,7 @@
 export default class Marble {
-  constructor(size, width, height) {
+  constructor(radius, width, height) {
     this.image = document.getElementById("img-marble");
-    this.size = size;
+    this.radius = radius;
     this.posX = 300;
     this.posY = 300;
     this.velX = 0;
@@ -13,7 +13,10 @@ export default class Marble {
   }
 
   draw(ctx) {
-    ctx.drawImage(this.image, this.posX, this.posY, this.size, this.size);
+    ctx.fillStyle = "blue";
+    ctx.beginPath();
+    ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
+    ctx.fill();
   }
 
   update(deltaTime, accX, accY) {
@@ -32,20 +35,20 @@ export default class Marble {
     }
 
     this.posX += this.velX * deltaTime;
-    if (this.posX < 0) {
-      this.posX = 0;
+    if (this.posX - this.radius < 0) {
+      this.posX = this.radius;
       this.velX = 0;
-    } else if (this.posX + this.size > this.width) {
-      this.posX = this.width - this.size;
+    } else if (this.posX + this.radius > this.width) {
+      this.posX = this.width - this.radius;
       this.velX = 0;
     }
 
     this.posY += this.velY * deltaTime;
-    if (this.posY < 0) {
-      this.posY = 0;
+    if (this.posY - this.radius < 0) {
+      this.posY = this.radius;
       this.velY = 0;
-    } else if (this.posY + this.size > this.height) {
-      this.posY = this.height - this.size;
+    } else if (this.posY + this.radius > this.height) {
+      this.posY = this.height - this.radius;
       this.velY = 0;
     }
   }

@@ -10,6 +10,7 @@ export default class Game {
   }
 
   drawHUD(ctx) {
+    ctx.fillStyle = "black";
     ctx.font = "16px Arial";
     ctx.fillText(`tilt: x=${this.board.tiltX} y=${this.board.tiltY}`, 20, 20);
     ctx.fillText(`acceleration: x=${this.board.accX} y=${this.board.accY}`, 20, 50);
