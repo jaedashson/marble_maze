@@ -5,19 +5,19 @@ export default class Marble {
     this.height = height;
     this.tiltX = 0;
     this.tiltY = 0;
-    this.maxTiltX = 30;
-    this.maxTiltY = 30;
+    this.maxTiltX = 45;
+    this.maxTiltY = 45;
     this.accX = 0;
     this.accY = 0;
     this.velX = 0;
     this.velY = 0;
-    this.maxSpeed = 10;
-    this.minSpeed = -10;
+    // this.maxSpeed = 10;
+    // this.minSpeed = -10;
     this.posX = 300;
     this.posY = 300;
     this.grav = 0.00025; // Adjust
-    this.fricSCoeff = 0.9; // Adjust
-    this.fricKCoeff = 0.9; // Adjust
+    this.fricSCoeff = 0.2; // Adjust
+    this.fricKCoeff = 0.2; // Adjust
   }
 
   draw(ctx) {
@@ -40,6 +40,7 @@ export default class Marble {
   }
 
   calculateAcc(deg, vel) {
+    // console.log("calculating acceleration!");
     let dir;
     if (deg === 0) {
       dir = Math.sign(vel);
@@ -64,10 +65,10 @@ export default class Marble {
     } else { // FIXME
       fric = this.calculateFricK(rad);
       let accNet = dir * (acc - fric);
-      // console.log(`dir=${dir}`); // DEBUG
-      // console.log(`acc=${acc}`); // DEBUG
-      // console.log(`fric=${fric}`); // DEBUG
-      // console.log(`accNet=${accNet}`); // DEBUG
+      console.log(`dir=${dir}`); // DEBUG
+      console.log(`acc=${acc}`); // DEBUG
+      console.log(`fric=${fric}`); // DEBUG
+      console.log(`accNet=${accNet}`); // DEBUG
       return accNet;
     }
   }
