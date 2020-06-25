@@ -99,35 +99,23 @@ export default class Marble {
     }
   }
 
-  updateAccX() {
-    this.accX = this.calculateAcc(this.tiltX);
-  }
-
-  updateAccY() {
-    this.accY = this.calculateAcc(this.tiltY);
-  }
-
   tiltUp(deltaTime) {
     this.tiltY -= deltaTime * 0.08; // Adjust
     if (this.tiltY < -1 * this.maxTiltY) this.tiltY = -1 * this.maxTiltY;
-    // this.updateAccY();
   }
 
   tiltDown(deltaTime) {
     this.tiltY += deltaTime * 0.08; // Adjust
     if (this.tiltY > this.maxTiltY) this.tiltY = this.maxTiltY;
-    // this.updateAccY();
   }
 
   tiltLeft(deltaTime) {
     this.tiltX -= deltaTime * 0.08; // Adjust
     if (this.tiltX < -1 * this.maxTiltX) this.tiltX = -1 * this.maxTiltX;
-    // this.updateAccX();
   }
 
   tiltRight(deltaTime) {
     this.tiltX += deltaTime * 0.08; // Adjust
     if (this.tiltX > this.maxTiltX) this.tiltX = this.maxTiltX;
-    // this.updateAccX();
   }
 }
