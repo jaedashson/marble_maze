@@ -14,7 +14,7 @@ const MARBLE_RADIUS = 10;
 
 let board = new Board(GAME_WIDTH, GAME_HEIGHT);
 let marble = new Marble(MARBLE_RADIUS, GAME_WIDTH, GAME_HEIGHT);
-let inputHandler = new InputHandler(board);
+let inputHandler = new InputHandler(marble);
 let game = new Game(board, marble);
 
 let lastTime = 0;

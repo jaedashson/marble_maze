@@ -16,8 +16,8 @@ export default class Marble {
     this.posX = 300;
     this.posY = 300;
     this.grav = 0.0025; // Adjust
-    this.fricSCoeff = 0.25; // Adjust
-    this.fricKCoeff = 0.2; // Adjust
+    this.fricSCoeff = 0.9; // Adjust
+    this.fricKCoeff = 0.85; // Adjust
   }
 
   draw(ctx) {
