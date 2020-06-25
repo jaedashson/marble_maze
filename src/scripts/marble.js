@@ -16,8 +16,8 @@ export default class Marble {
     this.posX = 300;
     this.posY = 300;
     this.grav = 0.0025; // Adjust
-    this.fricSCoeff = 0.9; // Adjust
-    this.fricKCoeff = 0.85; // Adjust
+    this.fricSCoeff = 0.2; // Adjust
+    this.fricKCoeff = 0.2; // Adjust
   }
 
   draw(ctx) {
@@ -110,24 +110,24 @@ export default class Marble {
   tiltUp(deltaTime) {
     this.tiltY -= deltaTime * 0.08; // Adjust
     if (this.tiltY < -1 * this.maxTiltY) this.tiltY = -1 * this.maxTiltY;
-    this.updateAccY();
+    // this.updateAccY();
   }
 
   tiltDown(deltaTime) {
     this.tiltY += deltaTime * 0.08; // Adjust
     if (this.tiltY > this.maxTiltY) this.tiltY = this.maxTiltY;
-    this.updateAccY();
+    // this.updateAccY();
   }
 
   tiltLeft(deltaTime) {
     this.tiltX -= deltaTime * 0.08; // Adjust
     if (this.tiltX < -1 * this.maxTiltX) this.tiltX = -1 * this.maxTiltX;
-    this.updateAccX();
+    // this.updateAccX();
   }
 
   tiltRight(deltaTime) {
     this.tiltX += deltaTime * 0.08; // Adjust
     if (this.tiltX > this.maxTiltX) this.tiltX = this.maxTiltX;
-    this.updateAccX();
+    // this.updateAccX();
   }
 }
