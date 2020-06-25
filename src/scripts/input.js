@@ -1,6 +1,6 @@
 export default class InputHandler {
-  constructor(board) {
-    this.board = board;
+  constructor(marble) {
+    this.marble = marble;
     this.keys;
 
     window.addEventListener("keydown", e => {
@@ -16,9 +16,9 @@ export default class InputHandler {
   }
 
   handleInput(deltaTime) {
-    if (this.keys && this.keys[87]) { this.board.tiltUp(deltaTime); }
-    if (this.keys && this.keys[83]) { this.board.tiltDown(deltaTime); }
-    if (this.keys && this.keys[65]) { this.board.tiltLeft(deltaTime); }
-    if (this.keys && this.keys[68]) { this.board.tiltRight(deltaTime); }
+    if (this.keys && this.keys[87]) { this.marble.tiltUp(deltaTime); }
+    if (this.keys && this.keys[83]) { this.marble.tiltDown(deltaTime); }
+    if (this.keys && this.keys[65]) { this.marble.tiltLeft(deltaTime); }
+    if (this.keys && this.keys[68]) { this.marble.tiltRight(deltaTime); }
   }
 }

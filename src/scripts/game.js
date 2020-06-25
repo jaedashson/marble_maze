@@ -12,8 +12,8 @@ export default class Game {
   drawHUD(ctx) {
     ctx.fillStyle = "black";
     ctx.font = "16px Arial";
-    ctx.fillText(`tilt: x=${this.board.tiltX} y=${this.board.tiltY}`, 20, 20);
-    ctx.fillText(`acceleration: x=${this.board.accX} y=${this.board.accY}`, 20, 50);
+    ctx.fillText(`tilt: x=${this.marble.tiltX} y=${this.marble.tiltY}`, 20, 20);
+    ctx.fillText(`acceleration: x=${this.marble.accX} y=${this.marble.accY}`, 20, 50);
     ctx.fillText(`velocity: x=${this.marble.velX} y=${this.marble.velY}`, 20, 80);
   }
 
