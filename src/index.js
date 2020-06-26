@@ -7,6 +7,7 @@ import Marble from "./scripts/marble";
 let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");
 
+const CELL_SIZE = 24;
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 // const MARBLE_SIZE = 20;
