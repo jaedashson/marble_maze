@@ -1,7 +1,8 @@
 export default class Game {
-  constructor(board, marble) {
+  constructor(board, marble, walls) {
     this.board = board;
     this.marble = marble;
+    this.walls = walls;
   }
   
   update(deltaTime) {
@@ -21,7 +22,8 @@ export default class Game {
   }
 
   draw(ctx) {
-    this.board.draw(ctx)
+    this.board.draw(ctx);
+    this.walls.forEach(wall => wall.draw(ctx));
     this.marble.draw(ctx);
     this.drawHUD(ctx);
   }
