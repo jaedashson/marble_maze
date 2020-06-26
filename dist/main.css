@@ -1,13 +1,4 @@
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center; }
-
-img {
-  display: none; }
-
-#game-screen {
-  transform: rotateX(0deg); }
+body{display:flex;flex-direction:column;align-items:center}#game-screen{transform:rotateX(0deg)}
 
 
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzL2luZGV4LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFDQTtBQUNBO0FBQ0Esc0JBQXNCOztBQUV0QjtBQUNBLGdCQUFnQjs7QUFFaEI7QUFDQSwyQkFBMkIiLCJmaWxlIjoibWFpbi5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcbiAgYWxpZ24taXRlbXM6IGNlbnRlcjsgfVxuXG5pbWcge1xuICBkaXNwbGF5OiBub25lOyB9XG5cbiNnYW1lLXNjcmVlbiB7XG4gIHRyYW5zZm9ybTogcm90YXRlWCgwZGVnKTsgfVxuIl0sInNvdXJjZVJvb3QiOiIifQ==*/
+/*# sourceMappingURL=main.css.map*/
