@@ -19,6 +19,8 @@ export default class Marble {
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
     this.tiltMultiplier = 0.03; // Adjust
+    this.stopX = false;
+    this.stopY = false;
   }
 
   draw(ctx) {
@@ -40,58 +42,53 @@ export default class Marble {
     return deg * (Math.PI / 180);
   }
 
-  calculateAcc(deg, vel) {
+  calculateAcc(deg, vel, axis) {
     // console.log("calculating acceleration!");
-    let dir;
-    if (deg === 0) {
-      dir = Math.sign(vel);
+    let dirAcc = Math.sign(deg);
+    let dirFric;
+    if (vel === 0) { // Is this correct?
+      dirFric = -1 * dirAcc;
     } else {
-      dir = Math.sign(deg);
+      dirFric = -1 * Math.sign(vel);
     }
 
-    let degAbs = Math.abs(deg);
-    let rad = this.degToRad(degAbs);
+    let rad = this.degToRad(Math.abs(deg));
 
-    let acc = this.grav * Math.sin(rad);
-    let fric;
+    let acc = dirAcc * this.grav * Math.sin(rad);
+    let fric = dirFric * this.fricKCoeff * this.grav * Math.cos(rad);
+    let accNet = acc + fric;
 
-    if (this.velX === 0 && this.velY === 0) {
-      fric = this.calculateFricS(rad);
-
-      if (acc <= fric) {
-        return 0;
-      } else {
-        return dir * (acc - fric);
-      }
-    } else { // FIXME
-      fric = this.calculateFricK(rad);
-      let accNet = dir * (acc - fric);
-      // console.log(`dir=${dir}`); // DEBUG
-      // console.log(`acc=${acc}`); // DEBUG
-      // console.log(`fric=${fric}`); // DEBUG
-      // console.log(`accNet=${accNet}`); // DEBUG
-      return accNet;
+    if (Math.abs(acc) <= Math.abs(fric) && Math.sign(accNet) !== Math.sign(vel)) {
+      if (axis === "x") this.stopX = true;
+      if (axis === "y") this.stopY = true;
+    } else {
+      if (axis === "x") this.stopX = false;
+      if (axis === "y") this.stopY = false;
     }
+
+    return accNet;
   }
 
   update(deltaTime) {
-    this.accX = this.calculateAcc(this.tiltX, this.velX);
-    this.accY = this.calculateAcc(this.tiltY, this.velY);
+    // Update accelerations
+    this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
+    this.accY = this.calculateAcc(this.tiltY, this.velY, "y");
 
+    // Update velX
+    let prevVelX = this.velX;
     this.velX += this.accX * deltaTime;
-    if (this.velX > this.maxSpeed) {
-      this.velX = this.maxSpeed;
-    } else if (this.velX < this.minSpeed) {
-      this.velX = this.minSpeed;
+    if (Math.sign(prevVelX) !== Math.sign(this.velX) && this.stopX) {
+      this.velX = 0;
     }
 
+    // Update velY
+    let prevVelY = this.velY;
     this.velY += this.accY * deltaTime;
-    if (this.velY > this.maxSpeed) {
-      this.velY = this.maxSpeed;
-    } else if (this.velY < this.minSpeed) {
-      this.velY = this.minSpeed;
+    if (Math.sign(prevVelY) !== Math.sign(this.velY) && this.stopY) {
+      this.velY = 0;
     }
-
+    
+    // Update posX
     this.posX += this.velX * deltaTime;
     if (this.posX - this.radius < 0) {
       this.posX = this.radius;
@@ -101,6 +98,7 @@ export default class Marble {
       this.velX = 0;
     }
 
+    // Update posY
     this.posY += this.velY * deltaTime;
     if (this.posY - this.radius < 0) {
       this.posY = this.radius;
