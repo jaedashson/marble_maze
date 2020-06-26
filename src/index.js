@@ -9,11 +9,11 @@ let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");
 
 export const CELL_SIZE = 36;
+export const WALL_RADIUS = 2;
 export const GAME_WIDTH = 22 * CELL_SIZE;
 export const GAME_HEIGHT = 18 * CELL_SIZE;
 // const MARBLE_SIZE = 20;
 const MARBLE_RADIUS = CELL_SIZE / 3;
-export const WALL_RADIUS = 2;
 
 let board = new Board(GAME_WIDTH, GAME_HEIGHT);
 let marble = new Marble(MARBLE_RADIUS, GAME_WIDTH, GAME_HEIGHT);
