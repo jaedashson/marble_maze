@@ -79,6 +79,7 @@ export default class Marble {
     this.velX += this.accX * deltaTime;
     if (Math.sign(prevVelX) !== Math.sign(this.velX) && this.stopX) {
       this.velX = 0;
+      this.accX = 0;
     }
 
     // Update velY
@@ -86,6 +87,7 @@ export default class Marble {
     this.velY += this.accY * deltaTime;
     if (Math.sign(prevVelY) !== Math.sign(this.velY) && this.stopY) {
       this.velY = 0;
+      this.accY = 0;
     }
     
     // Update posX
