@@ -18,6 +18,7 @@ export default class Marble {
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
+    this.tiltMultiplier = 0.03; // Adjust
   }
 
   draw(ctx) {
@@ -31,7 +32,7 @@ export default class Marble {
     return this.fricSCoeff * this.grav * Math.cos(rad);
   }
 
-  calculateFricK(rad) {
+  calculateFricK(rad, vel) {
     return this.fricKCoeff * this.grav * Math.cos(rad);
   }
 
@@ -65,10 +66,10 @@ export default class Marble {
     } else { // FIXME
       fric = this.calculateFricK(rad);
       let accNet = dir * (acc - fric);
-      console.log(`dir=${dir}`); // DEBUG
-      console.log(`acc=${acc}`); // DEBUG
-      console.log(`fric=${fric}`); // DEBUG
-      console.log(`accNet=${accNet}`); // DEBUG
+      // console.log(`dir=${dir}`); // DEBUG
+      // console.log(`acc=${acc}`); // DEBUG
+      // console.log(`fric=${fric}`); // DEBUG
+      // console.log(`accNet=${accNet}`); // DEBUG
       return accNet;
     }
   }
@@ -111,22 +112,22 @@ export default class Marble {
   }
 
   tiltUp(deltaTime) {
-    this.tiltY -= deltaTime * 0.08; // Adjust
+    this.tiltY -= deltaTime * this.tiltMultiplier;
     if (this.tiltY < -1 * this.maxTiltY) this.tiltY = -1 * this.maxTiltY;
   }
 
   tiltDown(deltaTime) {
-    this.tiltY += deltaTime * 0.08; // Adjust
+    this.tiltY += deltaTime * this.tiltMultiplier;
     if (this.tiltY > this.maxTiltY) this.tiltY = this.maxTiltY;
   }
 
   tiltLeft(deltaTime) {
-    this.tiltX -= deltaTime * 0.08; // Adjust
+    this.tiltX -= deltaTime * this.tiltMultiplier;
     if (this.tiltX < -1 * this.maxTiltX) this.tiltX = -1 * this.maxTiltX;
   }
 
   tiltRight(deltaTime) {
-    this.tiltX += deltaTime * 0.08; // Adjust
+    this.tiltX += deltaTime * this.tiltMultiplier;
     if (this.tiltX > this.maxTiltX) this.tiltX = this.maxTiltX;
   }
 }
