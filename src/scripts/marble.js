@@ -1,5 +1,7 @@
+import walls from "./walls";
+
 export default class Marble {
-  constructor(radius, width, height) {
+  constructor(radius, width, height, walls) {
     this.radius = radius;
     this.width = width;
     this.height = height;
@@ -13,14 +15,24 @@ export default class Marble {
     this.velY = 0;
     // this.maxSpeed = 10;
     // this.minSpeed = -10;
-    this.posX = 300;
-    this.posY = 300;
+    this.posX = 400;
+    this.posY = 340;
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
     this.tiltMultiplier = 0.03; // Adjust
     this.stopX = false;
     this.stopY = false;
+    this.walls = walls;
+
+    this.wallRadius = 2;
+    this.halfOfLongestWallLength = 4;
+    this.cellSize = 36; // Game size adjustment
+
+    // The farthest a marble's center can be from a wall's center and still possibly collide (assuming longest wall is 8 cells long)
+    this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
+    
+    // debugger;
   }
 
   draw(ctx) {
@@ -28,6 +40,12 @@ export default class Marble {
     ctx.beginPath();
     ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
     ctx.fill();
+
+    ctx.beginPath();
+    // debugger
+    ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
+    ctx.stroke();
+
   }
 
   calculateFricS(rad) {
@@ -69,7 +87,44 @@ export default class Marble {
     return accNet;
   }
 
+  calculateDistance(x1, y1, x2, y2) {
+    // debugger
+    const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    // debugger
+    return dist;
+  }
+
+  // Iterate through walls and check for collision
+  checkWallCollisions() {
+    // debugger
+    const wallsToCheck = [];
+
+    this.walls.forEach(wall => {
+      // debugger
+
+      if (this.calculateDistance(this.posX, this.posY, wall.center.x, wall.center.y) <= this.distRadius) {
+        // debugger
+        wallsToCheck.push(wall);
+      }
+    })
+
+    debugger
+
+    wallsToCheck.forEach(wall => {
+      this.detectCollision(wall);
+    })
+  }
+
+  // Detect collision
+  // This is where I apply reading from Eric
+  detectCollision(wall) {
+
+  }
+
+
   update(deltaTime) {
+    this.checkWallCollisions(); // DEBUG
+
     // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
     this.accY = this.calculateAcc(this.tiltY, this.velY, "y");

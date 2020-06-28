@@ -6,26 +6,42 @@ import { CELL_SIZE, WALL_RADIUS } from "../index"; // Why don't these imports wo
 // modEnd < 0 => shorten the ending portion of the wall
 
 export default class Wall {
-  constructor(startXCell, startYCell, orientation, length, cellSize, wallRadius, modStart, modEnd) {
-    debugger // FIXME
+  constructor(id, startXCell, startYCell, orientation, length, cellSize, wallRadius, modStart, modEnd) {
+    // debugger // FIXME
+    this.id = id;
     this.startXCell = startXCell;
     this.startYCell = startYCell;
     this.orientation = orientation;
     this.length = length;
-    this.cellSize = cellSize;
-    this.radius = wallRadius;
+    this.cellSize = 36; // Game size multiplier
+    this.radius = 2; // Half of wall thickness
     this.modStart = modStart;
     this.modEnd = modEnd;
+
 
     // Calculate dimensions
     this.topLeft;
     this.topRight;
     this.bottomLeft;
     this.bottomRight;
+    this.center;
     this.calculateDimensions();
+    this.calculateCenter();
+
+    // debugger
+  }
+
+  calculateCenter() {
+    // debugger
+    this.center = {
+      x: (this.topRight.x + this.topLeft.x) / 2,
+      y: (this.topLeft.y + this.bottomLeft.y) / 2
+    };
+    // debugger
   }
 
   calculateDimensions() {
+    // debugger
     if (this.orientation === "x") {
       this.topLeft = {
         x: this.startXCell * this.cellSize,
@@ -95,12 +111,24 @@ export default class Wall {
         this.bottomLeft.y += this.radius;
         this.bottomRight.y += this.radius;
       }
-
     }
   }
 
   draw(ctx) {
+    // debugger
+    // Draw id label
+    ctx.fillStyle = "blue";
+    ctx.font = "12 px Arial";
+    ctx.fillText(`${this.id} YO`, this.center.x, this.center.y);
+    // debugger
+    // Draw wall
     ctx.fillStyle = "black";
     ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topRight.x - this.topLeft.x, this.bottomLeft.y - this.topLeft.y);
+    // debugger
+    // Draw center
+    ctx.fillStyle = "red";
+    ctx.beginPath();
+    ctx.arc(this.center.x, this.center.y, 2, 0, 2 * Math.PI);
+    ctx.fill(); 
   }
 }
