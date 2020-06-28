@@ -24,6 +24,8 @@ export default class Wall {
     this.topRight;
     this.bottomLeft;
     this.bottomRight;
+    this.wallWidth;
+    this.wallHeight;
     this.center;
     this.calculateDimensions();
     this.calculateCenter();
@@ -112,6 +114,11 @@ export default class Wall {
         this.bottomRight.y += this.radius;
       }
     }
+
+    // Calculate wallWidth and wallHeight
+    this.wallWidth = this.topRight.x - this.topLeft.x;
+    this.wallHeight = this.bottomLeft.y - this.topLeft.y;
+    // debugger
   }
 
   draw(ctx) {
@@ -123,7 +130,7 @@ export default class Wall {
     // debugger
     // Draw wall
     ctx.fillStyle = "black";
-    ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topRight.x - this.topLeft.x, this.bottomLeft.y - this.topLeft.y);
+    ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topRight.x - this.topLeft.x, this.bottomLeft.y - this.topLeft.y); // FIXME - Refactor to include wallWidth and wallHeight
     // debugger
     // Draw center
     ctx.fillStyle = "red";

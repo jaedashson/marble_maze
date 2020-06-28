@@ -18,8 +18,8 @@ export default class Marble {
     this.velY = 0;
     // this.maxSpeed = 10;
     // this.minSpeed = -10;
-    this.posX = this.cellSize * 17; // Adjust starting posX
-    this.posY = this.cellSize * 13; // Adjust starting posY
+    this.posX = this.cellSize * 4; // Adjust starting posX
+    this.posY = this.cellSize * 2; // Adjust starting posY
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
@@ -120,7 +120,29 @@ export default class Marble {
   // Detect collision
   // This is where I apply reading from Eric
   detectCollision(wall) {
+    debugger
 
+    // temporary variables to set edges for testing
+    let testX = null;
+    let testY = null;
+
+    // which edge is closest?
+    if (this.posX < wall.topLeft.x) testX = wall.topLeft.x; // left edge
+    else if (this.posX > wall.topLeft.x + wall.wallWidth) testX = wall.topLeft.x + wall.wallWidth; // right edge
+    if (this.posY < wall.topLeft.y) testY = wall.topLeft.y; // top edge
+    else if (this.posY > wall.topLeft.y + wall.wallHeight) testY = wall.topLeft.y + wall.wallHeight; // bottom edge
+    debugger
+
+    const distX = this.posX - testX;
+    const distY = this.posY - testY;
+
+    if (this.calculateDistance(this.posX, this.posY, testX, testY) <= this.radius) {
+      debugger
+      return true;
+    }
+
+    debugger
+    return false;
   }
 
 
