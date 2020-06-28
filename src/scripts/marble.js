@@ -2,6 +2,9 @@ import walls from "./walls";
 
 export default class Marble {
   constructor(radius, width, height, walls) {
+    this.cellSize = 36; // Game size adjustment
+
+
     this.radius = radius;
     this.width = width;
     this.height = height;
@@ -15,8 +18,8 @@ export default class Marble {
     this.velY = 0;
     // this.maxSpeed = 10;
     // this.minSpeed = -10;
-    this.posX = 400;
-    this.posY = 340;
+    this.posX = this.cellSize * 17; // Adjust starting posX
+    this.posY = this.cellSize * 13; // Adjust starting posY
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
@@ -27,7 +30,6 @@ export default class Marble {
 
     this.wallRadius = 2;
     this.halfOfLongestWallLength = 4;
-    this.cellSize = 36; // Game size adjustment
 
     // The farthest a marble's center can be from a wall's center and still possibly collide (assuming longest wall is 8 cells long)
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;

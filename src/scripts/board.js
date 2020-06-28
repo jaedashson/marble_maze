@@ -14,14 +14,4 @@ export default class Board {
     ctx.lineTo(0, 0);
     ctx.stroke();
   }
-
-  // a = gsinθ
-  calculateAcc(deg) {
-    let sign = Math.sign(deg);
-    let degAbs = Math.abs(deg);
-    let rad = this.degToRad(degAbs);
-    let acc = sign * this.grav * Math.sin(rad);
-
-    let fric = this.calculateFric(rad);
-  }
 }
