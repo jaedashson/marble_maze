@@ -129,7 +129,10 @@ export default class Marble {
   }
 
   detectCollision(wall) {
+    let distance = null; // DEBUG
+
     // detect top collision
+    debugger
     if (
       this.posY < wall.topLeft.y &&
       wall.topLeft.x <= this.posX &&
@@ -141,6 +144,7 @@ export default class Marble {
     }
 
     // detect bottom collision
+    debugger
     if (
       this.posY > wall.bottomLeft.y &&
       wall.topLeft.x <= this.posX &&
@@ -152,6 +156,7 @@ export default class Marble {
     }
 
     // detect left collision
+    debugger
     if (
       this.posX < wall.topLeft.x &&
       wall.topLeft.y <= this.posY &&
@@ -163,6 +168,7 @@ export default class Marble {
     }
 
     // detect right collision
+    debugger
     if (
       this.posX > wall.topRight.x &&
       wall.topLeft.y <= this.posY &&
@@ -174,10 +180,12 @@ export default class Marble {
     }
 
     // detect top-left collision
+    distance = this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y);
+    debugger
     if (
       this.posX < wall.topLeft.x &&
       this.posY < wall.topLeft.y &&
-      this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y) <= this.radius
+      distance <= this.radius
     ) {
       debugger
       // determine angle
@@ -196,10 +204,12 @@ export default class Marble {
     }
 
     // detect top-right collision
+    distance = this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y);
+    debugger
     if (
       this.posX > wall.topRight.x &&
       this.posY < wall.topRight.y &&
-      this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y) <= this.radius
+      distance <= this.radius
     ) {
       debugger
       // determine angle
@@ -218,10 +228,12 @@ export default class Marble {
     }
 
     // detect bottom-left collision
+    distance = this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y);
+    debugger
     if (
       this.posX < wall.bottomLeft.x &&
       this.posY > wall.bottomLeft.y &&
-      this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y) <= this.radius
+      distance <= this.radius
     ) {
       debugger
       // determine angle
@@ -240,10 +252,12 @@ export default class Marble {
     }
 
     // detect bottom-right collision
+    distance = this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y);
+    debugger
     if (
       this.posX > wall.bottomRight.x &&
       this.posY > wall.bottomRight.y &&
-      this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y) <= this.radius
+      distance <= this.radius
     ) {
       debugger
       // determine angle
@@ -266,12 +280,13 @@ export default class Marble {
     this.checkWallCollisions(); // DEBUG
 
     if (this.collision) {
-      alert(this.collision);
+      // alert(this.collision);
     }
+    debugger
 
     // Update accelerations
-    this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
-    this.accY = this.calculateAcc(this.tiltY, this.velY, "y");
+    this.accX = this.calculateAcc(this.tiltX, this.velX, "x"); // FIXME
+    this.accY = this.calculateAcc(this.tiltY, this.velY, "y"); // FIXME
 
     // Update velX
     let prevVelX = this.velX;
