@@ -34,7 +34,16 @@ export default class Marble {
     // The farthest a marble's center can be from a wall's center and still possibly collide (assuming longest wall is 8 cells long)
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
+    this.collision = null;
+    this.collisionCornerX = null;
+    this.collisionCornerY = null;
     // debugger;
+  }
+
+  resetCollisionData() {
+    this.collision = null;
+    this.collisionCornerX = null;
+    this.collisionCornerY = null;
   }
 
   draw(ctx) {
@@ -99,6 +108,8 @@ export default class Marble {
   // Iterate through walls and check for collision
   checkWallCollisions() {
     // debugger
+    this.collision = null;
+
     const wallsToCheck = [];
 
     this.walls.forEach(wall => {
@@ -117,50 +128,146 @@ export default class Marble {
     })
   }
 
-  // Detect collision
-  // This is where I apply reading from Eric
   detectCollision(wall) {
-    debugger
-
-    // temporary variables to set edges for testing
-    let testX = null;
-    let testY = null;
-
-    // which edge is closest?
-    if (this.posX < wall.topLeft.x) {
+    // detect top collision
+    if (
+      this.posY < wall.topLeft.y &&
+      wall.topLeft.x <= this.posX &&
+      this.posX <= wall.topRight.x &&
+      wall.topLeft.x - this.posY <= this.radius
+    ) {
       debugger
-      testX = wall.topLeft.x; // left edge
-    } else if (this.posX > wall.topLeft.x + wall.wallWidth) {
-      debugger
-      testX = wall.topLeft.x + wall.wallWidth; // right edge
+      this.collision = "top";
     }
 
-
-    if (this.posY < wall.topLeft.y) {
+    // detect bottom collision
+    if (
+      this.posY > wall.bottomLeft.y &&
+      wall.topLeft.x <= this.posX &&
+      this.posX <= wall.topRight.x &&
+      this.posY - wall.bottomLeft.y <= this.radius
+    ) {
       debugger
-      testY = wall.topLeft.y; // top edge
-    } else if (this.posY > wall.topLeft.y + wall.wallHeight) {
-      debugger
-      testY = wall.topLeft.y + wall.wallHeight; // bottom edge
+      this.collision = "bottom";
     }
 
-    const distX = this.posX - testX;
-    const distY = this.posY - testY;
-    const distance = Math.sqrt( (distX * distX) + (distY * distY) );
-    debugger
-
-    if (distance <= this.radius) {
+    // detect left collision
+    if (
+      this.posX < wall.topLeft.x &&
+      wall.topLeft.y <= this.posY &&
+      this.posY <= wall.bottomLeft.y &&
+      wall.topLeft.x - this.posX <= this.radius
+    ) {
       debugger
-      return true;
+      this.collision = "left";
     }
 
-    debugger
-    return false;
+    // detect right collision
+    if (
+      this.posX > wall.topRight.x &&
+      wall.topLeft.y <= this.posY &&
+      this.posY <= wall.bottomLeft.y &&
+      this.posX - wall.topRight.x <= this.radius
+    ) {
+      debugger
+      this.collision = "right";
+    }
+
+    // detect top-left collision
+    if (
+      this.posX < wall.topLeft.x &&
+      this.posY < wall.topLeft.y &&
+      this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y) <= this.radius
+    ) {
+      debugger
+      // determine angle
+      const opp = wall.topLeft.y - this.posY;
+      const adj = wall.topLeft.x - this.posX;
+
+      const theta = Math.atan(opp / adj);
+
+      if (theta === Math.PI / 4) {
+        this.collision = "top-left";
+      } else if (theta < Math.PI / 4) {
+        this.collision = "left";
+      } else if (theta > Math.PI / 4) {
+        this.collision = "top";
+      }
+    }
+
+    // detect top-right collision
+    if (
+      this.posX > wall.topRight.x &&
+      this.posY < wall.topRight.y &&
+      this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y) <= this.radius
+    ) {
+      debugger
+      // determine angle
+      const opp = wall.topRight.y - this.posY;
+      const adj = this.posX - wall.topRight.x;
+
+      const theta = Math.atan(opp / adj);
+
+      if (theta === Math.PI / 4) {
+        this.collision = "top-right";
+      } else if (theta < Math.PI / 4) {
+        this.collision = "right";
+      } else if (theta > Math.PI / 4) {
+        this.collision = "top";
+      }
+    }
+
+    // detect bottom-left collision
+    if (
+      this.posX < wall.bottomLeft.x &&
+      this.posY > wall.bottomLeft.y &&
+      this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y) <= this.radius
+    ) {
+      debugger
+      // determine angle
+      const opp = this.posY - wall.bottomLeft.y;
+      const adj = wall.bottomLeft.x - this.posX;
+
+      const theta = Math.atan(opp / adj);
+
+      if (theta === Math.Pi / 4) {
+        this.collision = "bottom-left";
+      } else if (theta < Math.PI / 4) {
+        this.collision = "left";
+      } else if (theta > Math.PI / 4) {
+        this.collision = "bottom";
+      }
+    }
+
+    // detect bottom-right collision
+    if (
+      this.posX > wall.bottomRight.x &&
+      this.posY > wall.bottomRight.y &&
+      this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y) <= this.radius
+    ) {
+      debugger
+      // determine angle
+      const opp = this.posY - wall.bottomRight.y;
+      const adj = this.posX - wall.bottomRight.x;
+
+      const theta = Math.atan(opp / adj);
+
+      if (theta === Math.PI / 4) {
+        this.collision = "bottom-right";
+      } else if (theta < Math.PI / 4) {
+        this.collision = "right";
+      } else if (theta > Math.PI / 4) {
+        this.collision = "bottom";
+      }
+    }
   }
-
 
   update(deltaTime) {
     this.checkWallCollisions(); // DEBUG
+
+    if (this.collision) {
+      alert(this.collision);
+    }
 
     // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
