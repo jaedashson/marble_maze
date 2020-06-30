@@ -132,146 +132,178 @@ export default class Marble {
     let distance = null; // DEBUG
 
     // detect top collision
-    debugger
     if (
       this.posY < wall.topLeft.y &&
       wall.topLeft.x <= this.posX &&
-      this.posX <= wall.topRight.x &&
-      wall.topLeft.x - this.posY <= this.radius
+      this.posX <= wall.topRight.x
     ) {
       debugger
-      this.collision = "top";
+      distance = wall.topLeft.x - this.posY;
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        this.collision = "top";
+      }
     }
 
     // detect bottom collision
-    debugger
     if (
       this.posY > wall.bottomLeft.y &&
       wall.topLeft.x <= this.posX &&
-      this.posX <= wall.topRight.x &&
-      this.posY - wall.bottomLeft.y <= this.radius
+      this.posX <= wall.topRight.x
     ) {
       debugger
-      this.collision = "bottom";
+      distance = this.posY - wall.bottomLeft.y;
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        this.collision = "bottom";
+      }
     }
 
     // detect left collision
-    debugger
     if (
       this.posX < wall.topLeft.x &&
       wall.topLeft.y <= this.posY &&
-      this.posY <= wall.bottomLeft.y &&
-      wall.topLeft.x - this.posX <= this.radius
+      this.posY <= wall.bottomLeft.y
     ) {
       debugger
-      this.collision = "left";
+      distance = wall.topLeft.x - this.posX;
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        this.collision = "left";
+      }
     }
 
     // detect right collision
-    debugger
     if (
       this.posX > wall.topRight.x &&
       wall.topLeft.y <= this.posY &&
-      this.posY <= wall.bottomLeft.y &&
-      this.posX - wall.topRight.x <= this.radius
+      this.posY <= wall.bottomLeft.y
     ) {
       debugger
-      this.collision = "right";
+      distance = this.posX - wall.topRight.x;
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        this.collision = "right";
+      }
     }
 
     // detect top-left collision
-    distance = this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y);
-    debugger
     if (
       this.posX < wall.topLeft.x &&
-      this.posY < wall.topLeft.y &&
-      distance <= this.radius
+      this.posY < wall.topLeft.y
     ) {
       debugger
-      // determine angle
-      const opp = wall.topLeft.y - this.posY;
-      const adj = wall.topLeft.x - this.posX;
-
-      const theta = Math.atan(opp / adj);
-
-      if (theta === Math.PI / 4) {
-        this.collision = "top-left";
-      } else if (theta < Math.PI / 4) {
-        this.collision = "left";
-      } else if (theta > Math.PI / 4) {
-        this.collision = "top";
+      distance = this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y);
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        // determine angle
+        const opp = wall.topLeft.y - this.posY;
+        const adj = wall.topLeft.x - this.posX;
+  
+        const theta = Math.atan(opp / adj);
+  
+        if (theta === Math.PI / 4) {
+          debugger
+          this.collision = "top-left";
+        } else if (theta < Math.PI / 4) {
+          debugger
+          this.collision = "left";
+        } else if (theta > Math.PI / 4) {
+          debugger
+          this.collision = "top";
+        }
       }
     }
 
     // detect top-right collision
-    distance = this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y);
-    debugger
     if (
       this.posX > wall.topRight.x &&
-      this.posY < wall.topRight.y &&
-      distance <= this.radius
+      this.posY < wall.topRight.y
     ) {
       debugger
-      // determine angle
-      const opp = wall.topRight.y - this.posY;
-      const adj = this.posX - wall.topRight.x;
-
-      const theta = Math.atan(opp / adj);
-
-      if (theta === Math.PI / 4) {
-        this.collision = "top-right";
-      } else if (theta < Math.PI / 4) {
-        this.collision = "right";
-      } else if (theta > Math.PI / 4) {
-        this.collision = "top";
+      distance = this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y);
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        // determine angle
+        const opp = wall.topRight.y - this.posY;
+        const adj = this.posX - wall.topRight.x;
+  
+        const theta = Math.atan(opp / adj);
+  
+        if (theta === Math.PI / 4) {
+          debugger
+          this.collision = "top-right";
+        } else if (theta < Math.PI / 4) {
+          debugger
+          this.collision = "right";
+        } else if (theta > Math.PI / 4) {
+          debugger
+          this.collision = "top";
+        }
       }
     }
 
     // detect bottom-left collision
-    distance = this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y);
-    debugger
     if (
       this.posX < wall.bottomLeft.x &&
-      this.posY > wall.bottomLeft.y &&
-      distance <= this.radius
+      this.posY > wall.bottomLeft.y
     ) {
       debugger
-      // determine angle
-      const opp = this.posY - wall.bottomLeft.y;
-      const adj = wall.bottomLeft.x - this.posX;
-
-      const theta = Math.atan(opp / adj);
-
-      if (theta === Math.Pi / 4) {
-        this.collision = "bottom-left";
-      } else if (theta < Math.PI / 4) {
-        this.collision = "left";
-      } else if (theta > Math.PI / 4) {
-        this.collision = "bottom";
+      distance = this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y);
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        // determine angle
+        const opp = this.posY - wall.bottomLeft.y;
+        const adj = wall.bottomLeft.x - this.posX;
+  
+        const theta = Math.atan(opp / adj);
+  
+        if (theta === Math.Pi / 4) {
+          debugger
+          this.collision = "bottom-left";
+        } else if (theta < Math.PI / 4) {
+          debugger
+          this.collision = "left";
+        } else if (theta > Math.PI / 4) {
+          debugger
+          this.collision = "bottom";
+        }
       }
     }
 
     // detect bottom-right collision
-    distance = this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y);
-    debugger
     if (
       this.posX > wall.bottomRight.x &&
-      this.posY > wall.bottomRight.y &&
-      distance <= this.radius
+      this.posY > wall.bottomRight.y
     ) {
       debugger
-      // determine angle
-      const opp = this.posY - wall.bottomRight.y;
-      const adj = this.posX - wall.bottomRight.x;
-
-      const theta = Math.atan(opp / adj);
-
-      if (theta === Math.PI / 4) {
-        this.collision = "bottom-right";
-      } else if (theta < Math.PI / 4) {
-        this.collision = "right";
-      } else if (theta > Math.PI / 4) {
-        this.collision = "bottom";
+      distance = this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y);
+      debugger
+      if (distance <= this.radius) {
+        debugger
+        // determine angle
+        const opp = this.posY - wall.bottomRight.y;
+        const adj = this.posX - wall.bottomRight.x;
+  
+        const theta = Math.atan(opp / adj);
+  
+        if (theta === Math.PI / 4) {
+          debugger
+          this.collision = "bottom-right";
+        } else if (theta < Math.PI / 4) {
+          debugger
+          this.collision = "right";
+        } else if (theta > Math.PI / 4) {
+          debugger
+          this.collision = "bottom";
+        }
       }
     }
   }
