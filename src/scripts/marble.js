@@ -18,8 +18,17 @@ export default class Marble {
     this.velY = 0;
     // this.maxSpeed = 10;
     // this.minSpeed = -10;
-    this.posX = this.cellSize * 2 + 14; // Adjust starting posX
-    this.posY = this.cellSize * 2 - 10; // Adjust starting posY
+
+    // testing starting position
+    this.posX = this.cellSize * 2 + 12;
+    this.posY = this.cellSize * 2;
+    
+    // default starting position
+    // this.posX = this.cellSize * 17;
+    // this.posY = this.cellSize * 17;
+
+
+    
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
@@ -138,7 +147,7 @@ export default class Marble {
       this.posX <= wall.topRight.x
     ) {
       debugger
-      distance = wall.topLeft.x - this.posY;
+      distance = wall.topLeft.y - this.posY;
       debugger
       if (distance <= this.radius) {
         debugger
