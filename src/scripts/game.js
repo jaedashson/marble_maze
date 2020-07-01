@@ -23,8 +23,8 @@ export default class Game {
 
   draw(ctx) {
     this.board.draw(ctx);
-    this.walls.forEach(wall => wall.draw(ctx));
     this.marble.draw(ctx);
+    this.walls.forEach(wall => wall.draw(ctx));
     this.drawHUD(ctx);
   }
 }

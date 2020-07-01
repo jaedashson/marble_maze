@@ -20,8 +20,8 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = this.cellSize * 2 + 12;
-    this.posY = this.cellSize * 2;
+    this.posX = 145;
+    this.posY = 136;
     
     // default starting position
     // this.posX = this.cellSize * 17;
@@ -44,19 +44,13 @@ export default class Marble {
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
     this.collision = null;
-    this.collisionCornerX = null;
-    this.collisionCornerY = null;
+    this.distanceMin = this.radius;
+
     // debugger;
   }
 
-  resetCollisionData() {
-    this.collision = null;
-    this.collisionCornerX = null;
-    this.collisionCornerY = null;
-  }
-
   draw(ctx) {
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "orange";
     ctx.beginPath();
     ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
     ctx.fill();
@@ -117,7 +111,10 @@ export default class Marble {
   // Iterate through walls and check for collision
   checkWallCollisions() {
     // debugger
+
+    // reset 
     this.collision = null;
+    this.distanceMin = this.radius;
 
     const wallsToCheck = [];
 
@@ -139,6 +136,9 @@ export default class Marble {
 
   detectCollision(wall) {
     let distance = null; // DEBUG
+    let opp = null;
+    let adj = null;
+    let theta = null;
 
     // detect top collision
     if (
@@ -149,9 +149,13 @@ export default class Marble {
       debugger
       distance = wall.topLeft.y - this.posY;
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
         debugger
         this.collision = "top";
+        this.distanceMin = distance;
       }
     }
 
@@ -164,9 +168,13 @@ export default class Marble {
       debugger
       distance = this.posY - wall.bottomLeft.y;
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
         debugger
         this.collision = "bottom";
+        this.distanceMin = distance;
       }
     }
 
@@ -179,9 +187,13 @@ export default class Marble {
       debugger
       distance = wall.topLeft.x - this.posX;
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin  
+      ) {
         debugger
         this.collision = "left";
+        this.distanceMin = distance;
       }
     }
 
@@ -194,9 +206,13 @@ export default class Marble {
       debugger
       distance = this.posX - wall.topRight.x;
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin  
+      ) {
         debugger
         this.collision = "right";
+        this.distanceMin = distance;
       }
     }
 
@@ -208,14 +224,17 @@ export default class Marble {
       debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y);
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
         debugger
         // determine angle
-        const opp = wall.topLeft.y - this.posY;
-        const adj = wall.topLeft.x - this.posX;
+        opp = wall.topLeft.y - this.posY;
+        adj = wall.topLeft.x - this.posX;
   
-        const theta = Math.atan(opp / adj);
-  
+        theta = Math.atan(opp / adj);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "top-left";
@@ -226,6 +245,8 @@ export default class Marble {
           debugger
           this.collision = "top";
         }
+
+        this.distanceMin = distance;
       }
     }
 
@@ -237,14 +258,17 @@ export default class Marble {
       debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y);
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
         debugger
         // determine angle
-        const opp = wall.topRight.y - this.posY;
-        const adj = this.posX - wall.topRight.x;
+        opp = wall.topRight.y - this.posY;
+        adj = this.posX - wall.topRight.x;
   
-        const theta = Math.atan(opp / adj);
-  
+        theta = Math.atan(opp / adj);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "top-right";
@@ -255,6 +279,8 @@ export default class Marble {
           debugger
           this.collision = "top";
         }
+
+        this.distanceMin = distance;
       }
     }
 
@@ -266,15 +292,21 @@ export default class Marble {
       debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y);
       debugger
-      if (distance <= this.radius) {
-        debugger
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
+        debugger // FIXME
         // determine angle
-        const opp = this.posY - wall.bottomLeft.y;
-        const adj = wall.bottomLeft.x - this.posX;
+        opp = this.posY - wall.bottomLeft.y;
+        adj = wall.bottomLeft.x - this.posX;
   
-        const theta = Math.atan(opp / adj);
-  
-        if (theta === Math.Pi / 4) {
+        theta = Math.atan(opp / adj);
+        console.log(opp);
+        console.log(adj);
+        console.log(theta);
+        debugger
+        if (theta === Math.PI / 4) {
           debugger
           this.collision = "bottom-left";
         } else if (theta < Math.PI / 4) {
@@ -284,6 +316,8 @@ export default class Marble {
           debugger
           this.collision = "bottom";
         }
+
+        this.distanceMin = distance;
       }
     }
 
@@ -295,14 +329,17 @@ export default class Marble {
       debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y);
       debugger
-      if (distance <= this.radius) {
+      if (
+        distance <= this.radius &&
+        distance < this.distanceMin
+      ) {
         debugger
         // determine angle
-        const opp = this.posY - wall.bottomRight.y;
-        const adj = this.posX - wall.bottomRight.x;
+        opp = this.posY - wall.bottomRight.y;
+        adj = this.posX - wall.bottomRight.x;
   
-        const theta = Math.atan(opp / adj);
-  
+        theta = Math.atan(opp / adj);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "bottom-right";
@@ -313,6 +350,8 @@ export default class Marble {
           debugger
           this.collision = "bottom";
         }
+
+        this.distanceMin = distance;
       }
     }
   }
