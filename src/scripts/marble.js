@@ -20,8 +20,8 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = 145;
-    this.posY = 136;
+    this.posX = 80;
+    this.posY = 200;
     
     // default starting position
     // this.posX = this.cellSize * 17;
@@ -45,7 +45,8 @@ export default class Marble {
     
     this.collision = null;
     this.distanceMin = this.radius;
-
+    this.shiftX = 0;
+    this.shiftY = 0;
     // debugger;
   }
 
@@ -112,9 +113,11 @@ export default class Marble {
   checkWallCollisions() {
     // debugger
 
-    // reset 
+    // reset collision instance variables
     this.collision = null;
     this.distanceMin = this.radius;
+    this.shiftX = 0;
+    this.shiftY = 0;
 
     const wallsToCheck = [];
 
@@ -156,6 +159,10 @@ export default class Marble {
         debugger
         this.collision = "top";
         this.distanceMin = distance;
+
+        // calculate shiftY
+        this.shiftY = 2 * (wall.topLeft.y - (this.posY + this.radius));
+        debugger
       }
     }
 
@@ -175,6 +182,10 @@ export default class Marble {
         debugger
         this.collision = "bottom";
         this.distanceMin = distance;
+
+        // calculate shiftY
+        this.shiftY = 2 * (wall.bottomLeft.y - (this.posY - this.radius));
+        debugger
       }
     }
 
@@ -194,6 +205,10 @@ export default class Marble {
         debugger
         this.collision = "left";
         this.distanceMin = distance;
+
+        // calculate shiftX
+        this.shiftX = 2 * (wall.topLeft.x - (this.posX + this.radius));
+        debugger
       }
     }
 
@@ -213,6 +228,10 @@ export default class Marble {
         debugger
         this.collision = "right";
         this.distanceMin = distance;
+
+        // calculate shiftX
+        this.shiftX = 2 * (wall.topRight.x - (this.posX - this.radius));
+        debugger
       }
     }
 
