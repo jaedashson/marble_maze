@@ -20,8 +20,8 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = 64;
-    this.posY = 222;
+    this.posX = 150;
+    this.posY = 152;
     
     // default starting position
     // this.posX = this.cellSize * 17;
@@ -417,21 +417,39 @@ export default class Marble {
         distance < this.distanceMin
       ) {
         debugger
-        // determine angle
         opp = this.posY - wall.bottomRight.y;
         adj = this.posX - wall.bottomRight.x;
   
         theta = Math.atan(opp / adj);
         debugger
+
+        intX = this.quadForm(
+          1,
+          -2 * this.posX,
+          Math.pow(this.posX, 2) + Math.pow(wall.bottomRight.y - this.posY, 2) - Math.pow(this.radius, 2)
+        );
+        intY = this.quadForm(
+          1,
+          -2 * this.posY,
+          Math.pow(this.posY, 2) + Math.pow(wall.bottomRight.x - this.posX, 2) - Math.pow(this.radius, 2)
+        );
+        debugger
+        shiftX = 2 * (wall.bottomRight.x - intX[0]);
+        shiftY = 2 * (wall.bottomRight.y - intY[0]);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "bottom-right";
+          this.shiftX = shiftX;
+          this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
           debugger
           this.collision = "right";
+          this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
           debugger
           this.collision = "bottom";
+          this.shiftY = shiftY;
         }
 
         this.distanceMin = distance;
