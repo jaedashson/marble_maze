@@ -20,7 +20,7 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = 64;
+    this.posX = 150;
     this.posY = 136;
     
     // default starting position
@@ -261,14 +261,12 @@ export default class Marble {
         distance < this.distanceMin
       ) {
         debugger
-        // determine angle
         opp = wall.topLeft.y - this.posY;
         adj = wall.topLeft.x - this.posX;
   
         theta = Math.atan(opp / adj);
         debugger
 
-        // calculate intX and intY
         intX = this.quadForm(
           1,
           -2 * this.posX,
@@ -280,7 +278,6 @@ export default class Marble {
           Math.pow(this.posY, 2) + Math.pow(wall.topLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
         debugger
-
         shiftX = 2 * (intX[1] - wall.topLeft.x);
         shiftY = 2 * (intY[1] - wall.topLeft.y);
         debugger
@@ -316,21 +313,39 @@ export default class Marble {
         distance < this.distanceMin
       ) {
         debugger
-        // determine angle
         opp = wall.topRight.y - this.posY;
         adj = this.posX - wall.topRight.x;
   
         theta = Math.atan(opp / adj);
         debugger
+
+        intX = this.quadForm(
+          1,
+          -2 * this.posX,
+          Math.pow(this.posX, 2) + Math.pow(wall.topRight.y - this.posY, 2) - Math.pow(this.radius, 2)
+        );
+        intY = this.quadForm(
+          1,
+          -2 * this.posY,
+          Math.pow(this.posY, 2) + Math.pow(wall.topRight.x - this.posX, 2) - Math.pow(this.radius, 2)
+        );
+        debugger
+        shiftX = 2 * (wall.topRight.x - intX[0]);
+        shiftY = 2 * (intY[1] - wall.topRight.y);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "top-right";
+          this.shiftX = shiftX;
+          this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
           debugger
           this.collision = "right";
+          this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
           debugger
           this.collision = "top";
+          this.shiftY = shiftY;
         }
 
         this.distanceMin = distance;
