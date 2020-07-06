@@ -27,10 +27,11 @@ export default class Marble {
     // this.posX = this.cellSize * 17;
     // this.posY = this.cellSize * 17;
     
-    this.grav = 0.00025; // Adjust
+    this.grav = 0.0025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
     this.fricKCoeff = 0.2; // Adjust
     this.tiltMultiplier = 0.03; // Adjust
+    this.bounciness = 0.5; // Adjust
     this.stopX = false;
     this.stopY = false;
     this.walls = walls;
@@ -118,15 +119,29 @@ export default class Marble {
     return dist;
   }
 
+  checkBorderCollisions() {
+    if (this.posX - this.radius < 0) {
+      this.collision = "right";
+      this.shiftX = 2 * (0 - (this.posX - this.radius));
+    } else if (this.posX + this.radius > this.width) {
+      this.collision = "left";
+      this.shiftX = -2 * ((this.posX + this.radius) - this.width);
+    }
+
+    if (this.posY - this.radius < 0) {
+      this.collision = "bottom";
+      this.shiftY = 2 * (0 - (this.posY - this.radius));
+    } else if (this.posY + this.radius > this.height) {
+      this.collision = "top";
+      this.shiftY = -2 * ((this.posY + this.radius) - this.height);
+    }
+  }
+
   // Iterate through walls and check for collision
   checkWallCollisions() {
     // debugger
 
-    // reset collision instance variables
-    this.collision = null;
-    this.distanceMin = this.radius;
-    this.shiftX = 0;
-    this.shiftY = 0;
+
 
     const wallsToCheck = [];
 
@@ -458,17 +473,16 @@ export default class Marble {
   }
 
   update(deltaTime) {
-    this.checkWallCollisions(); // DEBUG
-
-    if (this.collision) {
-      // alert(this.collision);
-    }
-    debugger
+    // reset collision instance variables
+    this.collision = null;
+    this.distanceMin = this.radius;
+    this.shiftX = 0;
+    this.shiftY = 0;
 
     // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x"); // FIXME
     this.accY = this.calculateAcc(this.tiltY, this.velY, "y"); // FIXME
-
+    
     // Update velX
     let prevVelX = this.velX;
     this.velX += this.accX * deltaTime;
@@ -476,7 +490,7 @@ export default class Marble {
       this.velX = 0;
       this.accX = 0;
     }
-
+    
     // Update velY
     let prevVelY = this.velY;
     this.velY += this.accY * deltaTime;
@@ -494,7 +508,7 @@ export default class Marble {
       this.posX = this.width - this.radius;
       this.velX = 0;
     }
-
+    
     // Update posY
     this.posY += this.velY * deltaTime;
     if (this.posY - this.radius < 0) {
@@ -504,6 +518,36 @@ export default class Marble {
       this.posY = this.height - this.radius;
       this.velY = 0;
     }
+
+    this.checkWallCollisions();
+    this.checkBorderCollisions();
+
+    if (this.collision) {
+      // correct position
+      this.posX += this.shiftX;
+      this.posY += this.shiftY;
+
+      // correct velocity
+      if (
+        this.collision === "top-left" ||
+        this.collision === "top-right" ||
+        this.collision === "bottom-left" ||
+        this.collision === "bottom-right"
+      ) {
+        this.velX *= (-1 * this.bounciness);
+        this.velY *= (-1 * this.bounciness);
+      }
+      if (this.collision === "top" || this.collision === "bottom") {
+        this.velX *= this.bounciness;
+        this.velY *= (-1 * this.bounciness);
+      }
+      if (this.collision === "left" || this.collision === "right") {
+        this.velX *= (-1 * this.bounciness);
+        this.velY *= this.bounciness;
+      }
+
+    }
+    debugger
   }
 
   tiltUp(deltaTime) {
