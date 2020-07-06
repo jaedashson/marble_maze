@@ -20,14 +20,12 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = 80;
-    this.posY = 200;
+    this.posX = 64;
+    this.posY = 136;
     
     // default starting position
     // this.posX = this.cellSize * 17;
     // this.posY = this.cellSize * 17;
-
-
     
     this.grav = 0.00025; // Adjust
     this.fricSCoeff = 0.2; // Adjust
@@ -61,6 +59,17 @@ export default class Marble {
     ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
+  }
+
+  quadForm(a, b, c) {
+    debugger
+    let soln1 = null;
+    let soln2 = null;
+
+    soln1 = (-b - Math.sqrt( b*b - 4 * a * c )) / (2 * a);
+    soln2 = (-b + Math.sqrt( b*b - 4 * a * c )) / (2 * a);
+    debugger
+    return [soln1, soln2];
   }
 
   calculateFricS(rad) {
@@ -142,6 +151,8 @@ export default class Marble {
     let opp = null;
     let adj = null;
     let theta = null;
+    let intX = null;
+    let intY = null;
 
     // detect top collision
     if (
@@ -254,15 +265,39 @@ export default class Marble {
   
         theta = Math.atan(opp / adj);
         debugger
+
+        // calculate intX and intY
+        intX = this.quadForm(
+          1,
+          -2 * this.posX,
+          Math.pow(this.posX, 2) + Math.pow(wall.topLeft.y - this.posY, 2) - Math.pow(this.radius, 2)
+        );
+        intY = this.quadForm(
+          1,
+          -2 * this.posY,
+          Math.pow(this.posY, 2) + Math.pow(wall.topLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
+        );
+        debugger
+
         if (theta === Math.PI / 4) {
           debugger
           this.collision = "top-left";
+          
+          // calculate shiftX and shiftY
+          this.shiftX = intX[1];
+          this.shiftY = intY[1];
         } else if (theta < Math.PI / 4) {
           debugger
           this.collision = "left";
+
+          // calculate shiftX
+          this.shiftX = tempShiftX;
         } else if (theta > Math.PI / 4) {
           debugger
           this.collision = "top";
+
+          // calculate shiftY
+          this.shiftY = tempShiftY;
         }
 
         this.distanceMin = distance;
