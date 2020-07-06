@@ -153,6 +153,8 @@ export default class Marble {
     let theta = null;
     let intX = null;
     let intY = null;
+    let shiftX = null;
+    let shiftY = null;
 
     // detect top collision
     if (
@@ -279,25 +281,22 @@ export default class Marble {
         );
         debugger
 
+        shiftX = 2 * (intX[1] - wall.topLeft.x);
+        shiftY = 2 * (intY[1] - wall.topLeft.y);
+        debugger
         if (theta === Math.PI / 4) {
           debugger
-          this.collision = "top-left";
-          
-          // calculate shiftX and shiftY
-          this.shiftX = intX[1];
-          this.shiftY = intY[1];
+          this.collision = "top-left";          
+          this.shiftX = shiftX;
+          this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
           debugger
           this.collision = "left";
-
-          // calculate shiftX
-          this.shiftX = tempShiftX;
+          this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
           debugger
           this.collision = "top";
-
-          // calculate shiftY
-          this.shiftY = tempShiftY;
+          this.shiftY = shiftY;
         }
 
         this.distanceMin = distance;
