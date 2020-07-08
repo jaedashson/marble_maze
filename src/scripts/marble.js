@@ -28,10 +28,10 @@ export default class Marble {
     // this.posY = this.cellSize * 17;
     
     this.grav = 0.0025; // Adjust
-    this.fricSCoeff = 0.2; // Adjust
-    this.fricKCoeff = 0.2; // Adjust
+    this.fricSCoeff = 0.05; // Adjust
+    this.fricKCoeff = 0.05; // Adjust
     this.tiltMultiplier = 0.03; // Adjust
-    this.bounciness = 0.5; // Adjust
+    this.bounciness = 0.1; // Adjust
     this.stopX = false;
     this.stopY = false;
     this.walls = walls;
