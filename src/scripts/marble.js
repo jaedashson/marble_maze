@@ -141,8 +141,6 @@ export default class Marble {
   checkWallCollisions() {
     // debugger
 
-
-
     const wallsToCheck = [];
 
     this.walls.forEach(wall => {
@@ -472,6 +470,17 @@ export default class Marble {
     }
   }
 
+  checkFinish() {
+    if (
+      this.posX >= 20 * this.cellSize &&
+      this.posY >= 16 * this.cellSize
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
   update(deltaTime) {
     // reset collision instance variables
     this.collision = null;
@@ -548,6 +557,11 @@ export default class Marble {
 
     }
     debugger
+
+    if (this.checkFinish) {
+      alert("YOU'RE WINNER");
+    }
+
   }
 
   tiltUp(deltaTime) {
