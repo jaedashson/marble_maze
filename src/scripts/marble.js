@@ -558,10 +558,9 @@ export default class Marble {
     }
     debugger
 
-    if (this.checkFinish) {
+    if (this.checkFinish()) {
       alert("YOU'RE WINNER");
     }
-
   }
 
   tiltUp(deltaTime) {
