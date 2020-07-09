@@ -6,7 +6,6 @@ export default class Game {
   }
   
   update(deltaTime) {
-    // this.board.update(deltaTime);
     this.marble.update(deltaTime, this.board.accX, this.board.accY);
   }
 
@@ -21,7 +20,13 @@ export default class Game {
     ctx.fillText(`velY=${this.marble.velY}`, 420, 86)
   }
 
+  drawStartFinish(ctx) {
+
+  }
+
   draw(ctx) {
+    this.drawStartFinish(ctx);
+
     this.board.draw(ctx);
     this.marble.draw(ctx);
     this.walls.forEach(wall => wall.draw(ctx));
