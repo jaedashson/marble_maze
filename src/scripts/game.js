@@ -21,7 +21,10 @@ export default class Game {
   }
 
   drawStartFinish(ctx) {
+    ctx.save();
 
+
+    ctx.restore();
   }
 
   draw(ctx) {
