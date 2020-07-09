@@ -21,11 +21,16 @@ export default class Game {
   }
 
   drawStartFinish(ctx) {
-    ctx.save();
-    ctx.fillStyle = "blue";
-    ctx.rotate(-1 * Math.PI / 2)
+    ctx.fillStyle = "red";
+    ctx.fillText("START", 36 * 17 - 22, 16 * 36);
 
-    ctx.restore();
+    ctx.fillStyle = "green";
+    ctx.fillText("FINISH", 21 * 36 - 22, 17 * 36 + 8);
+    
+    ctx.strokeStyle = "green";
+    ctx.beginPath();
+    ctx.rect(20 * 36, 16 * 36, 2 * 36, 2 * 36);
+    ctx.stroke();
   }
 
   draw(ctx) {

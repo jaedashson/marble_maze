@@ -126,7 +126,7 @@ export default class Wall {
     // Draw id label
     ctx.fillStyle = "blue";
     ctx.font = "12 px Arial";
-    ctx.fillText(`${this.id} YO`, this.center.x, this.center.y);
+    ctx.fillText(`${this.id}`, this.center.x, this.center.y);
     // debugger
     // Draw wall
     ctx.fillStyle = "black";
