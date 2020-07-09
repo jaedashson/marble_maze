@@ -22,7 +22,8 @@ export default class Game {
 
   drawStartFinish(ctx) {
     ctx.save();
-
+    ctx.fillStyle = "blue";
+    ctx.rotate(-1 * Math.PI / 2)
 
     ctx.restore();
   }
