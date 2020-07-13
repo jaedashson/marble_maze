@@ -1,8 +1,10 @@
 export default class Game {
-  constructor(board, marble, walls) {
+  constructor(board, marble, walls, holes) {
+    debugger
     this.board = board;
     this.marble = marble;
     this.walls = walls;
+    this.holes = holes;
   }
   
   update(deltaTime) {
@@ -39,6 +41,7 @@ export default class Game {
     this.board.draw(ctx);
     this.marble.draw(ctx);
     this.walls.forEach(wall => wall.draw(ctx));
+    this.holes.forEach(hole => hole.draw(ctx));
     this.drawHUD(ctx);
   }
 }

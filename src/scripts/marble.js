@@ -1,13 +1,17 @@
 import walls from "./walls";
 
 export default class Marble {
-  constructor(radius, width, height, walls) {
-    this.cellSize = 36; // Game size adjustment
-
-
+  constructor(radius, width, height, walls, holes) {
     this.radius = radius;
     this.width = width;
     this.height = height;
+    this.walls = walls;
+    this.holes = holes;
+    
+
+
+    this.cellSize = 36; // Game size adjustment
+    
     this.tiltX = 0;
     this.tiltY = 0;
     this.maxTiltX = 45;
@@ -34,7 +38,6 @@ export default class Marble {
     this.bounciness = 0.1; // Adjust
     this.stopX = false;
     this.stopY = false;
-    this.walls = walls;
 
     this.wallRadius = 2;
     this.halfOfLongestWallLength = 4;
@@ -63,13 +66,13 @@ export default class Marble {
   }
 
   quadForm(a, b, c) {
-    debugger
+    // debugger
     let soln1 = null;
     let soln2 = null;
 
     soln1 = (-b - Math.sqrt( b*b - 4 * a * c )) / (2 * a);
     soln2 = (-b + Math.sqrt( b*b - 4 * a * c )) / (2 * a);
-    debugger
+    // debugger
     return [soln1, soln2];
   }
 
@@ -152,7 +155,7 @@ export default class Marble {
       }
     })
 
-    debugger
+    // debugger
 
     wallsToCheck.forEach(wall => {
       this.detectCollision(wall);
@@ -175,20 +178,20 @@ export default class Marble {
       wall.topLeft.x <= this.posX &&
       this.posX <= wall.topRight.x
     ) {
-      debugger
+      // debugger
       distance = wall.topLeft.y - this.posY;
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         this.collision = "top";
         this.distanceMin = distance;
 
         // calculate shiftY
         this.shiftY = 2 * (wall.topLeft.y - (this.posY + this.radius));
-        debugger
+        // debugger
       }
     }
 
@@ -198,20 +201,20 @@ export default class Marble {
       wall.topLeft.x <= this.posX &&
       this.posX <= wall.topRight.x
     ) {
-      debugger
+      // debugger
       distance = this.posY - wall.bottomLeft.y;
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         this.collision = "bottom";
         this.distanceMin = distance;
 
         // calculate shiftY
         this.shiftY = 2 * (wall.bottomLeft.y - (this.posY - this.radius));
-        debugger
+        // debugger
       }
     }
 
@@ -221,20 +224,20 @@ export default class Marble {
       wall.topLeft.y <= this.posY &&
       this.posY <= wall.bottomLeft.y
     ) {
-      debugger
+      // debugger
       distance = wall.topLeft.x - this.posX;
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin  
       ) {
-        debugger
+        // debugger
         this.collision = "left";
         this.distanceMin = distance;
 
         // calculate shiftX
         this.shiftX = 2 * (wall.topLeft.x - (this.posX + this.radius));
-        debugger
+        // debugger
       }
     }
 
@@ -244,20 +247,20 @@ export default class Marble {
       wall.topLeft.y <= this.posY &&
       this.posY <= wall.bottomLeft.y
     ) {
-      debugger
+      // debugger
       distance = this.posX - wall.topRight.x;
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin  
       ) {
-        debugger
+        // debugger
         this.collision = "right";
         this.distanceMin = distance;
 
         // calculate shiftX
         this.shiftX = 2 * (wall.topRight.x - (this.posX - this.radius));
-        debugger
+        // debugger
       }
     }
 
@@ -266,19 +269,19 @@ export default class Marble {
       this.posX < wall.topLeft.x &&
       this.posY < wall.topLeft.y
     ) {
-      debugger
+      // debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.topLeft.x, wall.topLeft.y);
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         opp = wall.topLeft.y - this.posY;
         adj = wall.topLeft.x - this.posX;
   
         theta = Math.atan(opp / adj);
-        debugger
+        // debugger
 
         intX = this.quadForm(
           1,
@@ -290,21 +293,21 @@ export default class Marble {
           -2 * this.posY,
           Math.pow(this.posY, 2) + Math.pow(wall.topLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
-        debugger
+        // debugger
         shiftX = -2 * (intX[1] - wall.topLeft.x);
         shiftY = -2 * (intY[1] - wall.topLeft.y);
-        debugger
+        // debugger
         if (theta === Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "top-left";          
           this.shiftX = shiftX;
           this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "left";
           this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "top";
           this.shiftY = shiftY;
         }
@@ -318,19 +321,19 @@ export default class Marble {
       this.posX > wall.topRight.x &&
       this.posY < wall.topRight.y
     ) {
-      debugger
+      // debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.topRight.x, wall.topRight.y);
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         opp = wall.topRight.y - this.posY;
         adj = this.posX - wall.topRight.x;
   
         theta = Math.atan(opp / adj);
-        debugger
+        // debugger
 
         intX = this.quadForm(
           1,
@@ -342,21 +345,21 @@ export default class Marble {
           -2 * this.posY,
           Math.pow(this.posY, 2) + Math.pow(wall.topRight.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
-        debugger
+        // debugger
         shiftX = 2 * (wall.topRight.x - intX[0]);
         shiftY = -2 * (intY[1] - wall.topRight.y);
-        debugger
+        // debugger
         if (theta === Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "top-right";
           this.shiftX = shiftX;
           this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "right";
           this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "top";
           this.shiftY = shiftY;
         }
@@ -370,19 +373,19 @@ export default class Marble {
       this.posX < wall.bottomLeft.x &&
       this.posY > wall.bottomLeft.y
     ) {
-      debugger
+      // debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.bottomLeft.x, wall.bottomLeft.y);
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         opp = this.posY - wall.bottomLeft.y;
         adj = wall.bottomLeft.x - this.posX;
   
         theta = Math.atan(opp / adj);
-        debugger
+        // debugger
 
         intX = this.quadForm(
           1,
@@ -394,21 +397,21 @@ export default class Marble {
           -2 * this.posY,
           Math.pow(this.posY, 2) + Math.pow(wall.bottomLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
-        debugger
+        // debugger
         shiftX = -2 * (intX[1] - wall.bottomLeft.x);
         shiftY = 2 * (wall.bottomLeft.y - intY[0]);
-        debugger
+        // debugger
         if (theta === Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "bottom-left";
           this.shiftX = shiftX;
           this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "left";
           this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "bottom";
           this.shiftY = shiftY;
         }
@@ -422,19 +425,19 @@ export default class Marble {
       this.posX > wall.bottomRight.x &&
       this.posY > wall.bottomRight.y
     ) {
-      debugger
+      // debugger
       distance = this.calculateDistance(this.posX, this.posY, wall.bottomRight.x, wall.bottomRight.y);
-      debugger
+      // debugger
       if (
         distance <= this.radius &&
         distance < this.distanceMin
       ) {
-        debugger
+        // debugger
         opp = this.posY - wall.bottomRight.y;
         adj = this.posX - wall.bottomRight.x;
   
         theta = Math.atan(opp / adj);
-        debugger
+        // debugger
 
         intX = this.quadForm(
           1,
@@ -446,21 +449,21 @@ export default class Marble {
           -2 * this.posY,
           Math.pow(this.posY, 2) + Math.pow(wall.bottomRight.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
-        debugger
+        // debugger
         shiftX = 2 * (wall.bottomRight.x - intX[0]);
         shiftY = 2 * (wall.bottomRight.y - intY[0]);
-        debugger
+        // debugger
         if (theta === Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "bottom-right";
           this.shiftX = shiftX;
           this.shiftY = shiftY;
         } else if (theta < Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "right";
           this.shiftX = shiftX;
         } else if (theta > Math.PI / 4) {
-          debugger
+          // debugger
           this.collision = "bottom";
           this.shiftY = shiftY;
         }
@@ -556,7 +559,7 @@ export default class Marble {
       }
 
     }
-    debugger
+    // debugger
 
     if (this.checkFinish()) {
       alert("YOU'RE WINNER");

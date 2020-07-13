@@ -4,6 +4,7 @@ import Game from "./scripts/game";
 import Board from "./scripts/board";
 import Marble from "./scripts/marble";
 import walls from "./scripts/walls";
+import holes from "./scripts/holes";
 
 let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");
@@ -16,9 +17,9 @@ export const GAME_HEIGHT = 18 * CELL_SIZE;
 const MARBLE_RADIUS = CELL_SIZE / 3;
 
 let board = new Board(GAME_WIDTH, GAME_HEIGHT);
-let marble = new Marble(MARBLE_RADIUS, GAME_WIDTH, GAME_HEIGHT, walls);
+let marble = new Marble(MARBLE_RADIUS, GAME_WIDTH, GAME_HEIGHT, walls, holes);
 let inputHandler = new InputHandler(marble);
-let game = new Game(board, marble, walls);
+let game = new Game(board, marble, walls, holes);
 
 let lastTime = 0;
 
