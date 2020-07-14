@@ -39,9 +39,9 @@ export default class Game {
     this.drawStartFinish(ctx);
 
     this.board.draw(ctx);
-    this.marble.draw(ctx);
     this.walls.forEach(wall => wall.draw(ctx));
     this.holes.forEach(hole => hole.draw(ctx));
+    this.marble.draw(ctx);
     this.drawHUD(ctx);
   }
 }

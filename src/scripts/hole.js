@@ -12,14 +12,20 @@ export default class Hole {
   }
 
   draw(ctx) {
-    // draw hole
-    ctx.fillStyle = "gray";
+    // // draw hole
+    // ctx.fillStyle = "gray";
+    // ctx.beginPath();
+    // ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
+    // ctx.fill();
+
+    // draw shadow
+    const grd = ctx.createRadialGradient(this.posX, this.posY, 0, this.posX, this.posY, this.radius + 10)
+    grd.addColorStop(0, "black");
+    grd.addColorStop(1, "gray");
+    ctx.fillStyle = grd;
     ctx.beginPath();
     ctx.arc(this.posX, this.posY, this.radius, 0, 2 * Math.PI);
     ctx.fill();
-
-    // draw shadow
-    ctx.fillStyle = "black";
-    const grd = ctx.createRadialGradient(this.posX, this.posY, this.radius, this.posX, this.posY, this.radius + 10)
+    
   }
 }
