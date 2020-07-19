@@ -10,24 +10,20 @@ export default class Marble {
 
     this.cellSize = 36; // Game size adjustment
     
-    this.tiltX = 0;
-    this.tiltY = 0;
     this.maxTiltX = 45;
     this.maxTiltY = 45;
+    this.startPosX = this.cellSize * 19;
+    this.startPosY = this.cellSize * 17;
+
+
+    this.tiltX = 0;
+    this.tiltY = 0;
     this.accX = 0;
     this.accY = 0;
     this.velX = 0;
     this.velY = 0;
-    // this.maxSpeed = 10;
-    // this.minSpeed = -10;
-
-    // testing starting position
     this.posX = this.cellSize * 11;
     this.posY = this.cellSize * 10;
-    
-    // default starting position
-    // this.posX = this.cellSize * 19;
-    // this.posY = this.cellSize * 17;
     
     this.grav = 0.0025; // Adjust
     this.fricSCoeff = 0.05; // Adjust
@@ -49,6 +45,19 @@ export default class Marble {
     this.shiftY = 0;
     this.fell = false;
     // debugger;
+  }
+
+  restart() {
+    this.tiltX = 0;
+    this.tiltY = 0;
+    this.accX = 0;
+    this.accY = 0;
+    this.velX = 0;
+    this.velY = 0;
+
+    // FIXME to match this.startPosX and this.startPosY
+    this.posX = this.cellSize * 11;
+    this.posY = this.cellSize * 10;
   }
 
   draw(ctx) {
@@ -488,6 +497,7 @@ export default class Marble {
       alert("YOU'RE afads");
     } else if (this.fell) {
       alert("YOU DIED");
+      this.restart();
     }
   }
 
