@@ -494,7 +494,8 @@ export default class Marble {
       this.posX >= 20 * this.cellSize &&
       this.posY >= 16 * this.cellSize
     ) {
-      alert("YOU'RE afads");
+      alert("YOU WIN");
+      this.restart();
     } else if (this.fell) {
       alert("YOU DIED");
       this.restart();
