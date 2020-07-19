@@ -22,11 +22,11 @@ export default class Marble {
     // this.minSpeed = -10;
 
     // testing starting position
-    this.posX = 150;
-    this.posY = 152;
+    this.posX = this.cellSize * 11;
+    this.posY = this.cellSize * 10;
     
     // default starting position
-    // this.posX = this.cellSize * 17;
+    // this.posX = this.cellSize * 19;
     // this.posY = this.cellSize * 17;
     
     this.grav = 0.0025; // Adjust
@@ -475,7 +475,6 @@ export default class Marble {
   detectHole() {
     this.holes.forEach(hole => {
       if (this.calculateDistance(this.posX, this.posY, hole.posX, hole.posY) <= hole.radius) {
-        alert("HOLE");
         this.fell = true;
       }
     })
@@ -486,7 +485,7 @@ export default class Marble {
       this.posX >= 20 * this.cellSize &&
       this.posY >= 16 * this.cellSize
     ) {
-      alert("YOU'RE WINNER");
+      alert("YOU'RE afads");
     } else if (this.fell) {
       alert("YOU DIED");
     }
@@ -542,6 +541,7 @@ export default class Marble {
 
     this.checkWallCollisions();
     this.checkBorderCollisions();
+    this.detectHole();
 
     if (this.collision) {
       // correct position
