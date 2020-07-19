@@ -7,7 +7,6 @@ export default class Hole {
     this.posX = this.posCellX * this.cellSize;
     this.posY = this.posCellY * this.cellSize;
 
-
     this.radius = (this.cellSize * 0.75) / 2 + 16; // FIXME
   }
 

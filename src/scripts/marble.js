@@ -7,8 +7,6 @@ export default class Marble {
     this.height = height;
     this.walls = walls;
     this.holes = holes;
-    
-
 
     this.cellSize = 36; // Game size adjustment
     
@@ -49,6 +47,7 @@ export default class Marble {
     this.distanceMin = this.radius;
     this.shiftX = 0;
     this.shiftY = 0;
+    this.fell = false;
     // debugger;
   }
 
@@ -473,15 +472,24 @@ export default class Marble {
     }
   }
 
+  detectHole() {
+    this.holes.forEach(hole => {
+      if (this.calculateDistance(this.posX, this.posY, hole.posX, hole.posY) <= hole.radius) {
+        alert("HOLE");
+        this.fell = true;
+      }
+    })
+  }
+
   checkFinish() {
     if (
       this.posX >= 20 * this.cellSize &&
       this.posY >= 16 * this.cellSize
     ) {
-      return true;
+      alert("YOU'RE WINNER");
+    } else if (this.fell) {
+      alert("YOU DIED");
     }
-
-    return false;
   }
 
   update(deltaTime) {
@@ -490,6 +498,7 @@ export default class Marble {
     this.distanceMin = this.radius;
     this.shiftX = 0;
     this.shiftY = 0;
+    this.fell = false;
 
     // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x"); // FIXME
@@ -561,9 +570,7 @@ export default class Marble {
     }
     // debugger
 
-    if (this.checkFinish()) {
-      alert("YOU'RE WINNER");
-    }
+    this.checkFinish();
   }
 
   tiltUp(deltaTime) {
