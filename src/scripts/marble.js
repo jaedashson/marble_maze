@@ -499,7 +499,7 @@ export default class Marble {
       alert("YOU WIN");
       this.restart();
     } else if (this.fell) {
-      alert("YOU DIED");
+      // alert("YOU DIED");
       this.restart();
     }
   }
