@@ -20,5 +20,6 @@ export default class InputHandler {
     if (this.keys && this.keys[83]) { this.marble.tiltDown(deltaTime); }
     if (this.keys && this.keys[65]) { this.marble.tiltLeft(deltaTime); }
     if (this.keys && this.keys[68]) { this.marble.tiltRight(deltaTime); }
+    if (this.keys && this.keys[82]) { this.marble.restart() }
   }
 }
