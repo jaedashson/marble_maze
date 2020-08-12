@@ -10,8 +10,23 @@
 </head>
 
 <body>
-  <h1>Marble Maze</h1>
-  <canvas id="game-screen" width="792" height="648"></canvas>
+  <h1 id="title">MARBLE MAZE</h1>
+  <div id="game-container">
+    <canvas id="game-screen" width="792" height="648"></canvas>
+    <div id="instructions-container">
+      <h1 id="instructions-header">Instructions</h1>
+      <p>Tilt the board to guide the marble to the finish!  Be careful to avoid falling into the traps!</p>
+
+      <p>Controls</p>
+      <ul id="controls-list">
+        <li><p>[W] - tilt board up</p></li>
+        <li><p>[S] - tilt board down</p></li>
+        <li><p>[A] - tilt board left</p></li>
+        <li><p>[D] - tilt board right</p></li>
+        <li><p>[R] - reset</p></li>
+      </ul>
+    </div>
+  </div>
   <script src="./dist/main.js"></script>
 </body>
 
