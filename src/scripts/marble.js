@@ -12,7 +12,7 @@ export default class Marble {
     
     this.maxTiltX = 45;
     this.maxTiltY = 45;
-    this.startPosX = this.cellSize * 19;
+    this.startPosX = this.cellSize * 17;
     this.startPosY = this.cellSize * 17;
 
 
@@ -22,8 +22,10 @@ export default class Marble {
     this.accY = 0;
     this.velX = 0;
     this.velY = 0;
-    this.posX = this.cellSize * 11;
-    this.posY = this.cellSize * 10;
+    // this.posX = this.cellSize * 11;
+    // this.posY = this.cellSize * 10;
+    this.posX = this.startPosX;
+    this.posY = this.startPosY;
     
     this.grav = 0.0025; // Adjust
     this.fricSCoeff = 0.05; // Adjust
