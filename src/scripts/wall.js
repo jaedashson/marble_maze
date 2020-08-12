@@ -123,15 +123,21 @@ export default class Wall {
 
   draw(ctx) {
     // debugger
+
+    // FIXME - delete for for final version
     // Draw id label
     ctx.fillStyle = "blue";
     ctx.font = "12 px Arial";
     ctx.fillText(`${this.id}`, this.center.x, this.center.y);
+
     // debugger
+    
     // Draw wall
     ctx.fillStyle = "black";
     ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topRight.x - this.topLeft.x, this.bottomLeft.y - this.topLeft.y); // FIXME - Refactor to include wallWidth and wallHeight
     // debugger
+
+    // FIXME - delete for final version
     // Draw center
     ctx.fillStyle = "red";
     ctx.beginPath();

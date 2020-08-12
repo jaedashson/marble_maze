@@ -68,6 +68,8 @@ export default class Marble {
 
     ctx.beginPath();
     // debugger
+
+    // FIXME - delete for final game
     ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
