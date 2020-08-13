@@ -12,8 +12,10 @@ export default class Game {
   }
 
   drawHUD(ctx) {
+    const fontSize = 16;
+
     ctx.fillStyle = "blue";
-    ctx.font = "16px Arial";
+    ctx.font = `${fontSize}px Arial`;
 
     // FIXME - delete for final game
     ctx.fillText(`tiltX=${this.marble.tiltX}`, 20, 26);
@@ -23,17 +25,23 @@ export default class Game {
     ctx.fillText(`velX=${this.marble.velX}`, 20, 86);
     ctx.fillText(`velY=${this.marble.velY}`, 420, 86);
 
+
+
+
     // final HUD
     const tiltBarLength = 160;
+    const tiltBarHeight = 20;
 
     ctx.fillText(`x direction`, 140, 26);
-    ctx.rect(220, 10, tiltBarLength, 20);
-    ctx.stroke();
-    
-
     ctx.fillText(`y direction`, 140, 56);
+    ctx.rect(220, 10, tiltBarLength, 20);
     ctx.rect(220, 40, tiltBarLength, 20);
     ctx.stroke();
+
+    // ctx.beginPath()
+
+
+
   }
 
   drawStartFinish(ctx) {
