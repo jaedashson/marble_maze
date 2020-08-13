@@ -24,9 +24,16 @@ export default class Game {
     ctx.fillText(`velY=${this.marble.velY}`, 420, 86);
 
     // final HUD
+    const tiltBarLength = 160;
+
     ctx.fillText(`x direction`, 140, 26);
+    ctx.rect(220, 10, tiltBarLength, 20);
+    ctx.stroke();
     
+
     ctx.fillText(`y direction`, 140, 56);
+    ctx.rect(220, 40, tiltBarLength, 20);
+    ctx.stroke();
   }
 
   drawStartFinish(ctx) {
