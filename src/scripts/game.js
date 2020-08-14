@@ -29,13 +29,30 @@ export default class Game {
 
 
     // final HUD
+    const startX = 140;
+    const startY = 10;
+
     const tiltBarLength = 160;
     const tiltBarHeight = 20;
 
-    ctx.fillText(`x direction`, 140, 26);
-    ctx.fillText(`y direction`, 140, 56);
-    ctx.rect(220, 10, tiltBarLength, 20);
-    ctx.rect(220, 40, tiltBarLength, 20);
+    ctx.strokeStyle = "black";
+    ctx.fillText(`x direction`, startX, startY + fontSize);
+    ctx.fillText(`y direction`, startX, startY + fontSize + 30);
+    ctx.rect(startX + 80, startY, tiltBarLength, tiltBarHeight);
+    ctx.rect(startX + 80, startY + 30, tiltBarLength, tiltBarHeight);
+    ctx.stroke();
+
+    
+
+
+    ctx.strokeStyle = "red";
+    ctx.beginPath();
+    ctx.moveTo(startX + 80 + (tiltBarLength / 2), startY);
+    ctx.lineTo(startX + 80 + (tiltBarLength / 2), startY + tiltBarHeight);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(startX + 80 + (tiltBarLength / 2), startY + 30);
+    ctx.lineTo(startX + 80 + (tiltBarLength / 2), startY + tiltBarHeight + 30);
     ctx.stroke();
 
     // ctx.beginPath()
