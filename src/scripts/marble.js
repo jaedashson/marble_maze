@@ -15,7 +15,6 @@ export default class Marble {
     this.startPosX = this.cellSize * 17; // this.cellSize * 17
     this.startPosY = this.cellSize * 17; // this.cellSize * 17
 
-
     this.tiltX = 0;
     this.tiltY = 0;
     this.accX = 0;
@@ -28,15 +27,16 @@ export default class Marble {
     this.grav = 0.0025; // acceleration due to gravity
     this.fricSCoeff = 0.05; // static friction coefficient
     this.fricKCoeff = 0.05; // kinetic friction coefficient
-    this.tiltSensitivity = 0.03; // tilt sensitivity
-    this.bounciness = 0.1; // Adjust
-    this.stopX = false;
-    this.stopY = false;
+    this.tiltSensitivity = 0.03;
+    this.bounciness = 0.1; 
+    this.stopX = false; // prevents movement in x-direction if true
+    this.stopY = false; // prevents movement in y-direction if true
 
     this.wallRadius = 2;
-    this.halfOfLongestWallLength = 4;
+    this.halfOfLongestWallLength = 4; // used to calculate this.distRadius
 
-    // The farthest a marble's center can be from a wall's center and still possibly collide (assuming longest wall is 8 cells long)
+    // The farthest a marble's center can be from a wall's center and still possibly collide
+    // Used to calculate which walls to check for collision
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
     this.collision = null;
