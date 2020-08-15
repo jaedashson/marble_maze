@@ -42,10 +42,8 @@ export default class Game {
     ctx.rect(startX + 80, startY + 30, tiltBarLength, tiltBarHeight);
     ctx.stroke();
 
-    
-
-
-    ctx.strokeStyle = "red";
+    // tilt bar center line
+    ctx.strokeStyle = "gray";
     ctx.beginPath();
     ctx.moveTo(startX + 80 + (tiltBarLength / 2), startY);
     ctx.lineTo(startX + 80 + (tiltBarLength / 2), startY + tiltBarHeight);
@@ -54,9 +52,25 @@ export default class Game {
     ctx.moveTo(startX + 80 + (tiltBarLength / 2), startY + 30);
     ctx.lineTo(startX + 80 + (tiltBarLength / 2), startY + tiltBarHeight + 30);
     ctx.stroke();
-
+    
     // ctx.beginPath()
+    
+    
+    // tilt meter
+    const tiltPercentX = this.marble.tiltX / this.marble.maxTiltX;
+    const tiltPercentY = this.marble.tiltY / this.marble.maxTiltY;
+    const tiltMeterPosX = tiltPercentX * (tiltBarLength / 2);
+    const tiltMeterPosY = tiltPercentY * (tiltBarLength / 2);
 
+    ctx.strokeStyle = "orange";
+    ctx.beginPath();
+    ctx.moveTo(startX + 80 + (tiltBarLength / 2) + tiltMeterPosX, startY);
+    ctx.lineTo(startX + 80 + (tiltBarLength / 2) + tiltMeterPosX, startY + tiltBarHeight);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(startX + 80 + (tiltBarLength / 2) + tiltMeterPosY, startY + 30);
+    ctx.lineTo(startX + 80 + (tiltBarLength / 2) + tiltMeterPosY, startY + tiltBarHeight + 30);
+    ctx.stroke();
 
 
   }
