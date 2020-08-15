@@ -2,18 +2,18 @@ import walls from "./walls";
 
 export default class Marble {
   constructor(radius, width, height, walls, holes) {
-    this.radius = radius;
-    this.width = width;
-    this.height = height;
+    this.radius = radius; // radius of the marble
+    this.width = width; // width of the board
+    this.height = height; // height of the board
     this.walls = walls;
     this.holes = holes;
 
-    this.cellSize = 36; // Game size adjustment
+    this.cellSize = 36; // game size adjustment
     
     this.maxTiltX = 45;
     this.maxTiltY = 45;
-    this.startPosX = this.cellSize * 17;
-    this.startPosY = this.cellSize * 17;
+    this.startPosX = this.cellSize * 17; // this.cellSize * 17
+    this.startPosY = this.cellSize * 17; // this.cellSize * 17
 
 
     this.tiltX = 0;
@@ -22,15 +22,13 @@ export default class Marble {
     this.accY = 0;
     this.velX = 0;
     this.velY = 0;
-    // this.posX = this.cellSize * 11;
-    // this.posY = this.cellSize * 10;
     this.posX = this.startPosX;
     this.posY = this.startPosY;
     
-    this.grav = 0.0025; // Adjust
-    this.fricSCoeff = 0.05; // Adjust
-    this.fricKCoeff = 0.05; // Adjust
-    this.tiltMultiplier = 0.03; // Adjust
+    this.grav = 0.0025; // acceleration due to gravity
+    this.fricSCoeff = 0.05; // static friction coefficient
+    this.fricKCoeff = 0.05; // kinetic friction coefficient
+    this.tiltSensitivity = 0.03; // tilt sensitivity
     this.bounciness = 0.1; // Adjust
     this.stopX = false;
     this.stopY = false;
@@ -58,8 +56,8 @@ export default class Marble {
     this.velY = 0;
 
     // FIXME to match this.startPosX and this.startPosY
-    this.posX = this.cellSize * 11;
-    this.posY = this.cellSize * 10;
+    this.posX = this.startPosX;
+    this.posY = this.startPosY;
   }
 
   draw(ctx) {
@@ -589,22 +587,22 @@ export default class Marble {
   }
 
   tiltUp(deltaTime) {
-    this.tiltY -= deltaTime * this.tiltMultiplier;
+    this.tiltY -= deltaTime * this.tiltSensitivity;
     if (this.tiltY < -1 * this.maxTiltY) this.tiltY = -1 * this.maxTiltY;
   }
 
   tiltDown(deltaTime) {
-    this.tiltY += deltaTime * this.tiltMultiplier;
+    this.tiltY += deltaTime * this.tiltSensitivity;
     if (this.tiltY > this.maxTiltY) this.tiltY = this.maxTiltY;
   }
 
   tiltLeft(deltaTime) {
-    this.tiltX -= deltaTime * this.tiltMultiplier;
+    this.tiltX -= deltaTime * this.tiltSensitivity;
     if (this.tiltX < -1 * this.maxTiltX) this.tiltX = -1 * this.maxTiltX;
   }
 
   tiltRight(deltaTime) {
-    this.tiltX += deltaTime * this.tiltMultiplier;
+    this.tiltX += deltaTime * this.tiltSensitivity;
     if (this.tiltX > this.maxTiltX) this.tiltX = this.maxTiltX;
   }
 }
