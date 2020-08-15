@@ -39,11 +39,11 @@ export default class Marble {
     // Used to calculate which walls to check for collision
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
-    this.collision = null;
+    this.collision = null; // collision type, if any
     this.distanceMin = this.radius;
-    this.shiftX = 0;
-    this.shiftY = 0;
-    this.fell = false;
+    this.shiftX = 0; // correction for posX after collision
+    this.shiftY = 0; // correction for posY after collision
+    this.fell = false; // true if marble fell into hole
     // debugger;
   }
 
