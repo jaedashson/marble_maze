@@ -15,8 +15,8 @@ export default class Marble {
     this.startPosX = this.cellSize * 1; // TODO - for final game, set to this.cellSize * 17
     this.startPosY = this.cellSize * 9; // TODO - for final game, set to this.cellSize * 17
 
-    this.tiltX = 0;
-    this.tiltY = 0;
+    this.tiltX = 0; // TEST
+    this.tiltY = 0; // TEST
     this.accX = 0;
     this.accY = 0;
     this.velX = 0;
@@ -55,8 +55,6 @@ export default class Marble {
     this.accY = 0;
     this.velX = 0;
     this.velY = 0;
-
-    // FIXME to match this.startPosX and this.startPosY
     this.posX = this.startPosX;
     this.posY = this.startPosY;
   }
@@ -76,6 +74,7 @@ export default class Marble {
 
   }
 
+  // TODO - replace with util function
   quadForm(a, b, c) {
     // debugger
     let soln1 = null;
@@ -95,6 +94,7 @@ export default class Marble {
     return this.fricKCoeff * this.grav * Math.cos(rad);
   }
 
+  // TODO - replace with util function
   degToRad(deg) {
     return deg * (Math.PI / 180);
   }
@@ -126,6 +126,7 @@ export default class Marble {
     return accNet;
   }
 
+  // TODO - replace with util function
   calculateDistance(x1, y1, x2, y2) {
     // debugger
     const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
