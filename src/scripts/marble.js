@@ -33,7 +33,8 @@ export default class Marble {
     this.stopY = false; // prevents movement in y-direction if true
 
     this.wallRadius = 2;
-    this.halfOfLongestWallLength = 4; // used to calculate this.distRadius
+    this.halfOfLongestWallLength = 11; // used to calculate this.distRadius
+    // TODO - change this so that it is dynamic based on this.walls
 
     // The farthest a marble's center can be from a wall's center and still possibly collide
     // Used to calculate which walls to check for collision
