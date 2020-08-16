@@ -1,7 +1,7 @@
 import Wall from "./wall";
-import { CELL_SIZE, WALL_RADIUS } from "../index"; // Why don't these imports work?
+import { CELL_SIZE, WALL_RADIUS } from "../index"; // TODO - Why don't these imports work?
 
-// debugger // FIXME
+// new Wall(id, startXCell, startYCell, orientation, length, cellSize, wallRadius, modStart, modEnd)
 const walls = [
   new Wall(1, 18, 0, "y", 2, 36, 2, 0, 1), // 1
   new Wall(2, 0, 2, "x", 2, 36, 2, 0, 0), // 2

@@ -77,7 +77,7 @@ export default class Game {
 
   drawStartFinish(ctx) {
     ctx.fillStyle = "red";
-    ctx.fillText("START", 36 * 17 - 22, 16 * 36);
+    ctx.fillText("START", 36 * 17 - 24, 17 * 36);
 
     ctx.fillStyle = "green";
     ctx.fillText("FINISH", 21 * 36 - 22, 17 * 36 + 8);

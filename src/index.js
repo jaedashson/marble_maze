@@ -3,8 +3,8 @@ import InputHandler from "./scripts/input";
 import Game from "./scripts/game";
 import Board from "./scripts/board";
 import Marble from "./scripts/marble";
-import walls from "./scripts/walls";
-import holes from "./scripts/holes";
+import walls from "./scripts/walls_test"; // select which walls file to import
+import holes from "./scripts/holes_test"; // select which holes file to import
 
 let canvas = document.getElementById("game-screen");
 let ctx = canvas.getContext("2d");

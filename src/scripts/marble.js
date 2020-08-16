@@ -28,7 +28,7 @@ export default class Marble {
     this.fricSCoeff = 0.05; // static friction coefficient
     this.fricKCoeff = 0.05; // kinetic friction coefficient
     this.tiltSensitivity = 0.03;
-    this.bounciness = 0.1; 
+    this.bounciness = 0.1; // TODO - delete
     this.stopX = false; // prevents movement in x-direction if true
     this.stopY = false; // prevents movement in y-direction if true
 
