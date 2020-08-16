@@ -12,8 +12,8 @@ export default class Marble {
     
     this.maxTiltX = 45;
     this.maxTiltY = 45;
-    this.startPosX = this.cellSize * 10; // TODO - for final game, set to this.cellSize * 17
-    this.startPosY = this.cellSize * 10; // TODO - for final game, set to this.cellSize * 17
+    this.startPosX = this.cellSize * 11; // TODO - for final game, set to this.cellSize * 17
+    this.startPosY = this.cellSize * 9; // TODO - for final game, set to this.cellSize * 17
 
     this.tiltX = 0;
     this.tiltY = 0;
