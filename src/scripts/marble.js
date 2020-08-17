@@ -3,23 +3,23 @@ import {
   quadForm,
   degToRad,
   calculateDistance
-} from "./util"; // HELP - why isn't this import working?
-import * as util from "./util"; // HELP - why isn't this import working?
+} from "./util"; // HELP - Why isn't this import working?
+import * as util from "./util"; // HELP - Why isn't this import working?
 
 export default class Marble {
   constructor(radius, width, height, walls, holes) {
-    this.radius = radius; // radius of the marble
-    this.width = width; // width of the board
-    this.height = height; // height of the board
+    this.radius = radius; // Radius of the marble
+    this.width = width; // Width of the board
+    this.height = height; // Height of the board
     this.walls = walls;
     this.holes = holes;
 
-    this.cellSize = 36; // game size adjustment
+    this.cellSize = 36; // Game size adjustment
     
     this.maxTiltX = 45;
     this.maxTiltY = 45;
-    this.startPosX = this.cellSize * 1; // TODO - for final game, set to this.cellSize * 17
-    this.startPosY = this.cellSize * 9; // TODO - for final game, set to this.cellSize * 17
+    this.startPosX = this.cellSize * 1; // TODO - For final game, set to this.cellSize * 17
+    this.startPosY = this.cellSize * 9; // TODO - For final game, set to this.cellSize * 17
 
     this.tiltX = 0; // TEST
     this.tiltY = 0; // TEST
@@ -30,26 +30,26 @@ export default class Marble {
     this.posX = this.startPosX;
     this.posY = this.startPosY;
     
-    this.grav = 0.0025; // acceleration due to gravity
-    this.fricSCoeff = 0.05; // static friction coefficient
-    this.fricKCoeff = 0.05; // kinetic friction coefficient
+    this.grav = 0.0025; // Acceleration due to gravity
+    this.fricSCoeff = 0.05; // Static friction coefficient
+    this.fricKCoeff = 0.05; // Kinetic friction coefficient
     this.tiltSensitivity = 0.03;
-    this.bounciness = 0.1; // TODO - delete
-    this.stopX = false; // prevents movement in x-direction if true
-    this.stopY = false; // prevents movement in y-direction if true
+    this.bounciness = 0.1; // TODO - Delete
+    this.stopX = false; // Prevents movement in x-direction if true
+    this.stopY = false; // Prevents movement in y-direction if true
 
     this.wallRadius = 2;
-    this.halfOfLongestWallLength = 11; // used to calculate this.distRadius
-    // TODO - change this so that it is dynamic based on this.walls
+    this.halfOfLongestWallLength = 11; // Used to calculate this.distRadius
+    // TODO - Change this so that it is dynamic based on this.walls
 
     // The farthest a marble's center can be from a wall's center and still possibly collide
     // Used to calculate which walls to check for collision
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
-    this.collision = null; // collision type, if any
+    this.collision = null; // Collision type, if any
     this.distanceMin = this.radius;
-    this.shiftX = 0; // correction for posX after collision
-    this.shiftY = 0; // correction for posY after collision
+    this.shiftX = 0; // Correction for posX after collision
+    this.shiftY = 0; // Correction for posY after collision
     this.fell = false; // true if marble fell into hole
     // debugger;
   }
@@ -74,13 +74,13 @@ export default class Marble {
     ctx.beginPath();
     // debugger
 
-    // FIXME - delete for final game
+    // FIXME - Delete for final game
     ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
     ctx.stroke();
 
   }
 
-  // TODO - replace with util function
+  // TODO - Replace with util function
   quadForm(a, b, c) {
     // debugger
     let soln1 = null;
@@ -92,7 +92,7 @@ export default class Marble {
     return [soln1, soln2];
   }
 
-  // TODO - replace with util function
+  // TODO - Replace with util function
   calculateDistance(x1, y1, x2, y2) {
     // debugger
     const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -108,7 +108,7 @@ export default class Marble {
     return this.fricKCoeff * this.grav * Math.cos(rad);
   }
 
-  // TODO - replace with util function
+  // TODO - Replace with util function
   degToRad(deg) {
     return deg * (Math.PI / 180);
   }
@@ -119,9 +119,9 @@ export default class Marble {
     let dirFric;
 
     if (vel === 0) { 
-      dirFric = -1 * dirTilt; // if marble is not already moving on this axis, direction of friction is opposite of direction of TILT
+      dirFric = -1 * dirTilt; // If marble is not already moving on this axis, direction of friction is opposite of direction of TILT.
     } else {
-      dirFric = -1 * Math.sign(vel); // if marble IS moving on this axis, friction is opposite of direction of VELOCITY
+      dirFric = -1 * Math.sign(vel); // If marble IS moving on this axis, friction is opposite of direction of VELOCITY.
     }
 
     // debugger
@@ -132,10 +132,10 @@ export default class Marble {
     let fric = dirFric * this.fricKCoeff * this.grav * Math.cos(rad);
     let accNet = acc + fric;
 
-    // if acceleration does not overcome friction and acceleration is not in the direction of velocity, marble should not move
+    // If acceleration does not overcome friction and acceleration is not in the direction of velocity, marble should not move on this axis.
     if (
       Math.abs(acc) <= Math.abs(fric) &&
-      Math.sign(accNet) !== Math.sign(vel) // HELP - what does this do?
+      Math.sign(accNet) !== Math.sign(vel) // HELP - What does this do?
     ) {
       if (axis === "x") this.stopX = true;
       if (axis === "y") this.stopY = true;
@@ -522,7 +522,7 @@ export default class Marble {
   }
 
   update(deltaTime) {
-    // reset collision instance variables
+    // Reset collision instance variables
     this.collision = null;
     this.distanceMin = this.radius;
     this.shiftX = 0;
@@ -531,13 +531,14 @@ export default class Marble {
     
 
 
-    // update accelerations
+    // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
     this.accY = this.calculateAcc(this.tiltY, this.velY, "y");
     
-    // update velX
+    // Update velX
     let prevVelX = this.velX;
     this.velX += this.accX * deltaTime;
+    // If velocity changes direction and this.stopX is true
     if (Math.sign(prevVelX) !== Math.sign(this.velX) && this.stopX) {
       this.velX = 0;
       this.accX = 0;
@@ -546,6 +547,7 @@ export default class Marble {
     // Update velY
     let prevVelY = this.velY;
     this.velY += this.accY * deltaTime;
+    // If velocity changes direction and this.stopY is true
     if (Math.sign(prevVelY) !== Math.sign(this.velY) && this.stopY) {
       this.velY = 0;
       this.accY = 0;
@@ -553,34 +555,36 @@ export default class Marble {
     
     // Update posX
     this.posX += this.velX * deltaTime;
-    if (this.posX - this.radius < 0) {
+    if (this.posX - this.radius < 0) { // If marble hits left border of maze
       this.posX = this.radius;
       this.velX = 0;
-    } else if (this.posX + this.radius > this.width) {
+    } else if (this.posX + this.radius > this.width) { // If marble hits right border of maze
       this.posX = this.width - this.radius;
       this.velX = 0;
     }
     
     // Update posY
     this.posY += this.velY * deltaTime;
-    if (this.posY - this.radius < 0) {
+    if (this.posY - this.radius < 0) { // If marble hits top border of maze
       this.posY = this.radius;
       this.velY = 0;
-    } else if (this.posY + this.radius > this.height) {
+    } else if (this.posY + this.radius > this.height) { // If marble hits bottom border of maze
       this.posY = this.height - this.radius;
       this.velY = 0;
     }
+
+    // BOOKMARK
 
     this.checkWallCollisions();
     this.checkBorderCollisions();
     this.detectHole();
 
     if (this.collision) {
-      // correct position
+      // Correct position
       this.posX += this.shiftX;
       this.posY += this.shiftY;
 
-      // correct velocity
+      // Correct velocity
       if (
         this.collision === "top-left" ||
         this.collision === "top-right" ||
