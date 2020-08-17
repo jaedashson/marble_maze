@@ -1,4 +1,10 @@
 import walls from "./walls";
+import {
+  quadForm,
+  degToRad,
+  calculateDistance
+} from "./util"; // HELP - why isn't this import working?
+import * as util from "./util"; // HELP - why isn't this import working?
 
 export default class Marble {
   constructor(radius, width, height, walls, holes) {
@@ -86,6 +92,14 @@ export default class Marble {
     return [soln1, soln2];
   }
 
+  // TODO - replace with util function
+  calculateDistance(x1, y1, x2, y2) {
+    // debugger
+    const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    // debugger
+    return dist;
+  }
+
   calculateFricS(rad) {
     return this.fricSCoeff * this.grav * Math.cos(rad);
   }
@@ -101,21 +115,28 @@ export default class Marble {
 
   calculateAcc(deg, vel, axis) {
     // console.log("calculating acceleration!");
-    let dirAcc = Math.sign(deg);
+    let dirTilt = Math.sign(deg); // -1 or 1 based on tilt on axis
     let dirFric;
-    if (vel === 0) { // Is this correct?
-      dirFric = -1 * dirAcc;
+
+    if (vel === 0) { 
+      dirFric = -1 * dirTilt; // if marble is not already moving on this axis, direction of friction is opposite of direction of TILT
     } else {
-      dirFric = -1 * Math.sign(vel);
+      dirFric = -1 * Math.sign(vel); // if marble IS moving on this axis, friction is opposite of direction of VELOCITY
     }
+
+    // debugger
 
     let rad = this.degToRad(Math.abs(deg));
 
-    let acc = dirAcc * this.grav * Math.sin(rad);
+    let acc = dirTilt * this.grav * Math.sin(rad);
     let fric = dirFric * this.fricKCoeff * this.grav * Math.cos(rad);
     let accNet = acc + fric;
 
-    if (Math.abs(acc) <= Math.abs(fric) && Math.sign(accNet) !== Math.sign(vel)) {
+    // if acceleration does not overcome friction and acceleration is not in the direction of velocity, marble should not move
+    if (
+      Math.abs(acc) <= Math.abs(fric) &&
+      Math.sign(accNet) !== Math.sign(vel) // HELP - what does this do?
+    ) {
       if (axis === "x") this.stopX = true;
       if (axis === "y") this.stopY = true;
     } else {
@@ -126,13 +147,7 @@ export default class Marble {
     return accNet;
   }
 
-  // TODO - replace with util function
-  calculateDistance(x1, y1, x2, y2) {
-    // debugger
-    const dist = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    // debugger
-    return dist;
-  }
+
 
   checkBorderCollisions() {
     if (this.posX - this.radius < 0) {
@@ -513,12 +528,14 @@ export default class Marble {
     this.shiftX = 0;
     this.shiftY = 0;
     this.fell = false;
-
-    // Update accelerations
-    this.accX = this.calculateAcc(this.tiltX, this.velX, "x"); // FIXME
-    this.accY = this.calculateAcc(this.tiltY, this.velY, "y"); // FIXME
     
-    // Update velX
+
+
+    // update accelerations
+    this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
+    this.accY = this.calculateAcc(this.tiltY, this.velY, "y");
+    
+    // update velX
     let prevVelX = this.velX;
     this.velX += this.accX * deltaTime;
     if (Math.sign(prevVelX) !== Math.sign(this.velX) && this.stopX) {
