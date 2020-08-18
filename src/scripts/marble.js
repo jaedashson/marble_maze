@@ -47,7 +47,7 @@ export default class Marble {
     this.distRadius = Math.sqrt(Math.pow(this.wallRadius, 2) + Math.pow(this.halfOfLongestWallLength * this.cellSize + this.wallRadius, 2)) + this.radius;
     
     this.collision = null; // Collision type, if any
-    this.distanceMin = this.radius;
+    this.distanceMin = this.radius; // HELP - What does this do?
     this.shiftX = 0; // Correction for posX after collision
     this.shiftY = 0; // Correction for posY after collision
     this.fell = false; // true if marble fell into hole
@@ -572,7 +572,7 @@ export default class Marble {
     // BOOKMARK
 
     this.checkWallCollisions();
-    this.checkBorderCollisions();
+    // this.checkBorderCollisions();
     this.detectHole();
 
     if (this.collision) {
@@ -587,16 +587,20 @@ export default class Marble {
         this.collision === "bottom-left" ||
         this.collision === "bottom-right"
       ) {
-        this.velX *= (-1 * this.bounciness);
-        this.velY *= (-1 * this.bounciness);
+        // this.velX *= (-1 * this.bounciness);
+        // this.velY *= (-1 * this.bounciness);
+        this.velX = 0;
+        this.velY = 0;
       }
       if (this.collision === "top" || this.collision === "bottom") {
-        this.velX *= this.bounciness;
-        this.velY *= (-1 * this.bounciness);
+        // this.velX *= this.bounciness;
+        // this.velY *= (-1 * this.bounciness);
+        this.velY = 0;
       }
       if (this.collision === "left" || this.collision === "right") {
-        this.velX *= (-1 * this.bounciness);
-        this.velY *= this.bounciness;
+        // this.velX *= (-1 * this.bounciness);
+        // this.velY *= this.bounciness;
+        this.velX = 0;
       }
 
     }
