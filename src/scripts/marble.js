@@ -196,10 +196,8 @@ export default class Marble {
     let theta = null;
     let intX = null;
     let intY = null;
-    let shiftX = null;
-    let shiftY = null;
 
-    // detect top collision
+    // Detect top collision
     if (
       this.posY < wall.topLeft.y &&
       wall.topLeft.x <= this.posX &&
@@ -217,7 +215,7 @@ export default class Marble {
         this.distanceMin = distance;
 
         // calculate shiftY
-        this.shiftY = 2 * (wall.topLeft.y - (this.posY + this.radius));
+        this.shiftY = wall.topLeft.y - (this.posY + this.radius);
         // debugger
       }
     }
@@ -240,7 +238,7 @@ export default class Marble {
         this.distanceMin = distance;
 
         // calculate shiftY
-        this.shiftY = 2 * (wall.bottomLeft.y - (this.posY - this.radius));
+        this.shiftY = wall.bottomLeft.y - (this.posY - this.radius);
         // debugger
       }
     }
@@ -263,7 +261,7 @@ export default class Marble {
         this.distanceMin = distance;
 
         // calculate shiftX
-        this.shiftX = 2 * (wall.topLeft.x - (this.posX + this.radius));
+        this.shiftX = wall.topLeft.x - (this.posX + this.radius);
         // debugger
       }
     }
@@ -286,7 +284,7 @@ export default class Marble {
         this.distanceMin = distance;
 
         // calculate shiftX
-        this.shiftX = 2 * (wall.topRight.x - (this.posX - this.radius));
+        this.shiftX = wall.topRight.x - (this.posX - this.radius);
         // debugger
       }
     }
@@ -321,8 +319,8 @@ export default class Marble {
           Math.pow(this.posY, 2) + Math.pow(wall.topLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
         // debugger
-        shiftX = -2 * (intX[1] - wall.topLeft.x);
-        shiftY = -2 * (intY[1] - wall.topLeft.y);
+        shiftX = intX[1] - wall.topLeft.x;
+        shiftY = intY[1] - wall.topLeft.y;
         // debugger
         if (theta === Math.PI / 4) {
           // debugger
@@ -373,8 +371,8 @@ export default class Marble {
           Math.pow(this.posY, 2) + Math.pow(wall.topRight.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
         // debugger
-        shiftX = 2 * (wall.topRight.x - intX[0]);
-        shiftY = -2 * (intY[1] - wall.topRight.y);
+        shiftX = wall.topRight.x - intX[0];
+        shiftY = intY[1] - wall.topRight.y;
         // debugger
         if (theta === Math.PI / 4) {
           // debugger
@@ -425,8 +423,8 @@ export default class Marble {
           Math.pow(this.posY, 2) + Math.pow(wall.bottomLeft.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
         // debugger
-        shiftX = -2 * (intX[1] - wall.bottomLeft.x);
-        shiftY = 2 * (wall.bottomLeft.y - intY[0]);
+        shiftX = intX[1] - wall.bottomLeft.x;
+        shiftY = wall.bottomLeft.y - intY[0];
         // debugger
         if (theta === Math.PI / 4) {
           // debugger
@@ -477,8 +475,8 @@ export default class Marble {
           Math.pow(this.posY, 2) + Math.pow(wall.bottomRight.x - this.posX, 2) - Math.pow(this.radius, 2)
         );
         // debugger
-        shiftX = 2 * (wall.bottomRight.x - intX[0]);
-        shiftY = 2 * (wall.bottomRight.y - intY[0]);
+        shiftX = wall.bottomRight.x - intX[0];
+        shiftY = wall.bottomRight.y - intY[0];
         // debugger
         if (theta === Math.PI / 4) {
           // debugger
@@ -528,8 +526,6 @@ export default class Marble {
     this.shiftX = 0;
     this.shiftY = 0;
     this.fell = false;
-    
-
 
     // Update accelerations
     this.accX = this.calculateAcc(this.tiltX, this.velX, "x");
@@ -605,8 +601,7 @@ export default class Marble {
 
     }
     // debugger
-
-    // debugger
+    
     this.checkFinish();
   }
 
