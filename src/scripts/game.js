@@ -18,15 +18,12 @@ export default class Game {
     ctx.font = `${fontSize}px Arial`;
 
     // FIXME - delete for final game
-    ctx.fillText(`tiltX=${this.marble.tiltX}`, 20, 26);
-    ctx.fillText(`tiltY=${this.marble.tiltY}`, 420, 26)
-    ctx.fillText(`accX=${this.marble.accX}`, 20, 56);
-    ctx.fillText(`accY=${this.marble.accY}`, 420, 56);
-    ctx.fillText(`velX=${this.marble.velX}`, 20, 86);
-    ctx.fillText(`velY=${this.marble.velY}`, 420, 86);
-
-
-
+    // ctx.fillText(`tiltX=${this.marble.tiltX}`, 20, 26);
+    // ctx.fillText(`tiltY=${this.marble.tiltY}`, 420, 26)
+    // ctx.fillText(`accX=${this.marble.accX}`, 20, 56);
+    // ctx.fillText(`accY=${this.marble.accY}`, 420, 56);
+    // ctx.fillText(`velX=${this.marble.velX}`, 20, 86);
+    // ctx.fillText(`velY=${this.marble.velY}`, 420, 86);
 
     // final HUD
     const startX = 140;

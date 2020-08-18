@@ -18,8 +18,8 @@ export default class Marble {
     
     this.maxTiltX = 45;
     this.maxTiltY = 45;
-    this.startPosX = this.cellSize * 1; // TODO - For final game, set to this.cellSize * 17
-    this.startPosY = this.cellSize * 9; // TODO - For final game, set to this.cellSize * 17
+    this.startPosX = this.cellSize * 17; // TODO - For final game, set to this.cellSize * 17
+    this.startPosY = this.cellSize * 17; // TODO - For final game, set to this.cellSize * 17
 
     this.tiltX = 0; // TEST
     this.tiltY = 0; // TEST
@@ -39,8 +39,8 @@ export default class Marble {
     this.stopY = false; // Prevents movement in y-direction if true
 
     this.wallRadius = 2;
-    this.halfOfLongestWallLength = 11; // Used to calculate this.distRadius
     // TODO - Change this so that it is dynamic based on this.walls
+    this.halfOfLongestWallLength = 4; // Used to calculate this.distRadius
 
     // The farthest a marble's center can be from a wall's center and still possibly collide
     // Used to calculate which walls to check for collision
@@ -75,8 +75,8 @@ export default class Marble {
     // debugger
 
     // FIXME - Delete for final game
-    ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
-    ctx.stroke();
+    // ctx.arc(this.posX, this.posY, this.distRadius, 0, 2 * Math.PI);
+    // ctx.stroke();
 
   }
 
@@ -196,6 +196,11 @@ export default class Marble {
     let theta = null;
     let intX = null;
     let intY = null;
+    let shiftX = null;
+    let shiftY = null;
+
+
+    // DETECT CORNER
 
     // Detect top collision
     if (

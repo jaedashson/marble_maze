@@ -124,11 +124,11 @@ export default class Wall {
   draw(ctx) {
     // debugger
 
-    // FIXME - delete for for final version
+    // FIXME - delete for for final game
     // Draw id label
-    ctx.fillStyle = "blue";
-    ctx.font = "12 px Arial";
-    ctx.fillText(`${this.id}`, this.center.x, this.center.y);
+    // ctx.fillStyle = "blue";
+    // ctx.font = "12 px Arial";
+    // ctx.fillText(`${this.id}`, this.center.x, this.center.y);
 
     // debugger
     
@@ -137,11 +137,11 @@ export default class Wall {
     ctx.fillRect(this.topLeft.x, this.topLeft.y, this.topRight.x - this.topLeft.x, this.bottomLeft.y - this.topLeft.y); // FIXME - Refactor to include wallWidth and wallHeight
     // debugger
 
-    // FIXME - delete for final version
+    // FIXME - delete for final game
     // Draw center
-    ctx.fillStyle = "red";
-    ctx.beginPath();
-    ctx.arc(this.center.x, this.center.y, 2, 0, 2 * Math.PI);
-    ctx.fill(); 
+    // ctx.fillStyle = "red";
+    // ctx.beginPath();
+    // ctx.arc(this.center.x, this.center.y, 2, 0, 2 * Math.PI);
+    // ctx.fill(); 
   }
 }
