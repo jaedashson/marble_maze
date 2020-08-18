@@ -33,8 +33,8 @@ export default class Game {
     const tiltBarHeight = 20;
 
     ctx.strokeStyle = "black";
-    ctx.fillText(`x direction`, startX, startY + fontSize);
-    ctx.fillText(`y direction`, startX, startY + fontSize + 30);
+    ctx.fillText(`x-direction`, startX, startY + fontSize);
+    ctx.fillText(`y-direction`, startX, startY + fontSize + 30);
     ctx.rect(startX + 80, startY, tiltBarLength, tiltBarHeight);
     ctx.rect(startX + 80, startY + 30, tiltBarLength, tiltBarHeight);
     ctx.stroke();
