@@ -606,6 +606,7 @@ export default class Marble {
     }
     // debugger
 
+    // debugger
     this.checkFinish();
   }
 
